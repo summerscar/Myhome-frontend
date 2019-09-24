@@ -1,0 +1,111 @@
+import {
+  Auth,
+  AuthData,
+  callService,
+  Connection,
+  createConnection,
+  ERR_HASS_HOST_REQUIRED,
+  ERR_INVALID_AUTH,
+  getAuth,
+  getUser,
+  HassConfig,
+  HassEntities,
+  HassUser,
+  subscribeConfig,
+  subscribeEntities
+} from 'home-assistant-js-websocket'
+import store from '@/store'
+import router from '@/router'
+
+let connection: Connection, auth: Auth
+
+export function loadTokens () {
+  let hassTokens
+  try {
+    hassTokens = JSON.parse(String(localStorage.getItem('hass_tokens')))
+  } catch (err) {}
+  return hassTokens
+}
+
+export async function saveTokens (tokens?: AuthData | null) {
+  try {
+    localStorage.setItem('hass_tokens', JSON.stringify(tokens))
+  } catch (err) {}
+}
+
+export function handleChange (
+  domain: string,
+  state: string | boolean,
+  data?: any
+) {
+  process.env.NODE_ENV === 'development' &&
+    console.log('handleChange:', domain, state, data)
+  if (typeof state === 'string') {
+    callService(connection, domain, state, data).then(
+      () => {},
+      err => {
+        console.error('Error calling service:', err)
+      }
+    )
+  } else {
+    callService(connection, domain, state ? 'turn_on' : 'turn_off', data).then(
+      () => {},
+      err => {
+        console.error('Error calling service:', err)
+      }
+    )
+  }
+}
+
+function eventHandler () {
+  console.log('Home Assistant connection has been established again.')
+}
+
+export async function connectToHASS (url: string) {
+  if (!connection) {
+    localStorage.setItem('hass_url', url)
+    auth = await getAuth({
+      hassUrl: url,
+      saveTokens: saveTokens,
+      loadTokens: () => Promise.resolve(loadTokens())
+    })
+    try {
+      connection = await createConnection({ auth })
+    } catch (err) {
+      try {
+        if (err !== ERR_HASS_HOST_REQUIRED) {
+          throw err
+        }
+        if (err !== ERR_INVALID_AUTH) {
+          throw err
+        }
+        // We can get invalid auth if auth tokens were stored that are no longer valid
+        // Clear stored tokens.
+        saveTokens()
+        auth = await getAuth({
+          hassUrl: url,
+          saveTokens: saveTokens,
+          loadTokens: () => Promise.resolve(loadTokens())
+        })
+        connection = await createConnection({ auth })
+      } catch (err) {
+        throw err
+      }
+    }
+    store.commit('setConnected', true)
+    connection.removeEventListener('ready', eventHandler)
+    connection.addEventListener('ready', eventHandler)
+    store.commit('setAuth', auth)
+    subscribeConfig(connection, (config: HassConfig) => {
+      store.commit('setHassConfig', config)
+    })
+    subscribeEntities(connection, (entities: HassEntities) => {
+      store.commit('setHassEntities', entities)
+    })
+    getUser(connection).then((user: HassUser) => {
+      console.log('Logged into Home Assistant as', user.name)
+      store.commit('setHassUser', user)
+      router.push('/')
+    })
+  }
+}

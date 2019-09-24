@@ -1,13 +1,37 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
     <router-view/>
   </div>
 </template>
+<script lang="ts">
+import Vue from 'vue'
+import { Component } from 'vue-property-decorator'
+import { parseTokens } from '@/utils/auth'
+import { loadTokens } from '@/utils/homeassistant'
+import {
+  State,
+  Getter,
+  Action,
+  Mutation,
+  namespace
+} from 'vuex-class'
 
+@Component
+export default class App extends Vue {
+  @Getter('connected') connected!:boolean;
+
+  created () {
+    parseTokens()
+
+    if (!this.connected && loadTokens()) {
+      this.$router.push('/login')
+    }
+  }
+  mounted () {
+
+  }
+}
+</script>
 <style lang="scss">
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
