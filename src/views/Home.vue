@@ -65,7 +65,8 @@ export default class Home extends Vue {
 
   mounted () {
     this.$nextTick(() => {
-      this.headerHeight = this.$refs.header.$el.offsetHeight
+      let header:HTMLElement = (this.$refs.header as Vue).$el as HTMLElement
+      this.headerHeight = header.offsetHeight
     })
   }
   logout ():void {
