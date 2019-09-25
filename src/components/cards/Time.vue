@@ -1,7 +1,7 @@
 <template>
   <card>
     <div>
-      {{ hour }} : {{ minute }}
+      {{ formatted }}
     </div>
   </card>
 </template>
@@ -17,21 +17,29 @@ import dayjs from 'dayjs'
   }
 })
 export default class Time extends Vue {
+  @Prop({ default: 'HH:mm:ss' }) readonly format?:string
   private date: Date = new Date()
+  private timer: ReturnType<typeof setInterval> = 0
 
-  get hour (): Number {
+  get formatted (): string {
+    return dayjs(this.date).format(this.format)
+  }
+  get hour (): number {
     return dayjs(this.date).hour()
   }
-  get minute (): Number {
+  get minute (): number {
     return dayjs(this.date).minute()
   }
-  get second (): Number {
+  get second (): number {
     return dayjs(this.date).second()
   }
   created () {
-    setTimeout(() => {
+    this.timer = setInterval(() => {
       this.date = new Date()
     }, 1000)
+  }
+  beforeDestroy () {
+    clearInterval(this.timer)
   }
 }
 </script>

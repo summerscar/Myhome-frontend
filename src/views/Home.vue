@@ -1,17 +1,16 @@
 <template>
   <div class="home">
     <background></background>
-    <home-header :hassUser="hassUser" @exit="logout"></home-header>
+    <home-header ref="header" :hassUser="hassUser" @exit="logout"></home-header>
     <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
-    <mu-container>
+    <mu-container :style="containerStyle">
       <mu-row gutter>
         <time-card></time-card>
       </mu-row>
-
       <mu-list>
         <mu-list-item v-for="(entity, name) in hassEntities" :key="name" button :ripple="false">
           <mu-list-item-action>
-            <mu-icon value="inbox"></mu-icon>
+            <mu-icon value=":fa fa-laptop"></mu-icon>
           </mu-list-item-action>
           <mu-list-item-title>{{ name }}</mu-list-item-title>
         </mu-list-item>
@@ -55,8 +54,19 @@ export default class Home extends Vue {
   @Getter('hassUser') hassUser!:HassUser;
   @Mutation('setConnected') setConnected!:Function
 
-  mounted () {
+  private headerHeight: number = 0
 
+  get containerStyle () {
+    return {
+      height: `calc(100vh - ${this.headerHeight}px)`,
+      overflow: 'auto'
+    }
+  }
+
+  mounted () {
+    this.$nextTick(() => {
+      this.headerHeight = this.$refs.header.$el.offsetHeight
+    })
   }
   logout ():void {
     this.setConnected(false)

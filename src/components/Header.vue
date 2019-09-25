@@ -1,5 +1,5 @@
 <template>
-  <mu-appbar style="width: 100%;" title="Title" color="rgba(27, 27, 27, 0.45)">
+  <mu-appbar class="header" style="width: 100%;" title="Title" color="rgba(27, 27, 27, 0.45)">
     <mu-menu slot="right">
       <mu-button flat>
         <mu-avatar text-color="deepOrange300" color="purple500">
@@ -9,12 +9,12 @@
       <mu-list slot="content">
         <mu-list-item button>
           <mu-list-item-title>
-            <mu-icon size="24" value="settings_applications"></mu-icon>
+            <mu-icon size="24" value=":fa fa-cog" color="#757575"></mu-icon>
           </mu-list-item-title>
         </mu-list-item>
         <mu-list-item button @click="exit">
           <mu-list-item-title>
-            <mu-icon size="24" value="exit_to_app"></mu-icon>
+            <mu-icon size="24" value=":fa fa-power-off" color="#757575"></mu-icon>
           </mu-list-item-title>
         </mu-list-item>
       </mu-list>
