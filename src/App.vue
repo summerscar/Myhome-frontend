@@ -7,7 +7,7 @@
 import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
 import { parseTokens } from '@/utils/auth'
-import { loadTokens } from '@/utils/homeassistant'
+import { loadTokens, loadHassUrl, connectToHASS } from '@/utils/homeassistant'
 import {
   State,
   Getter,
@@ -22,12 +22,8 @@ export default class App extends Vue {
 
   created () {
     parseTokens()
-
-    if (!this.connected && loadTokens()) {
-      this.$router.push('/login')
-    }
   }
-  mounted () {
+  async mounted () {
 
   }
 }

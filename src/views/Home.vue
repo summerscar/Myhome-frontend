@@ -1,24 +1,31 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
+    <background></background>
+    <home-header :hassUser="hassUser" @exit="logout"></home-header>
+    <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
     <mu-container>
-      <div>当前用户: {{ hassUser && hassUser.name }}</div>
-       <mu-list>
+      <mu-row gutter>
+        <time-card></time-card>
+      </mu-row>
+
+      <mu-list>
         <mu-list-item v-for="(entity, name) in hassEntities" :key="name" button :ripple="false">
           <mu-list-item-action>
             <mu-icon value="inbox"></mu-icon>
           </mu-list-item-action>
           <mu-list-item-title>{{ name }}</mu-list-item-title>
         </mu-list-item>
-       </mu-list>
-      <mu-button color="primary" @click="logout">exit</mu-button>
+      </mu-list>
     </mu-container>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import HelloWorld from '@/components/HelloWorld.vue' // @ is an alias to /src
+import Background from '@/components/Background.vue' // @ is an alias to /src
+import Header from '@/components/Header.vue'
+import TimeCard from '@/components/cards/Time.vue'
+
 import {
   State,
   Getter,
@@ -35,7 +42,9 @@ import {
 
 @Component({
   components: {
-    HelloWorld
+    Background,
+    HomeHeader: Header,
+    TimeCard
   }
 })
 export default class Home extends Vue {
@@ -44,9 +53,19 @@ export default class Home extends Vue {
   @Getter('hassConfig') hassConfig!:HassConfig;
   @Getter('hassAuth') hassAuth!:Auth;
   @Getter('hassUser') hassUser!:HassUser;
+  @Mutation('setConnected') setConnected!:Function
 
+  mounted () {
+
+  }
   logout ():void {
-
+    this.setConnected(false)
+    this.$router.push({ path: '/login' })
   }
 }
 </script>
+<style lang="scss" scoped>
+div.home {
+  color: #fafafa;
+}
+</style>

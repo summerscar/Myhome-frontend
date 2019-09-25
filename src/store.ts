@@ -35,7 +35,16 @@ export default new Vuex.Store({
   },
   mutations: {
     setConnected (state, boolean: boolean) {
-      state.connected = boolean
+      if (boolean) {
+        state.connected = boolean
+      } else {
+        state.hassAuth = {}
+        state.hassConfig = {}
+        state.hassEntities = {}
+        state.hassUser = {}
+        localStorage.removeItem('hass_url')
+        localStorage.removeItem('hass_tokens')
+      }
     },
     setAuth (state, auth: Auth) {
       state.hassAuth = auth

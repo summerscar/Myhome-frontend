@@ -27,6 +27,10 @@ export function loadTokens () {
   return hassTokens
 }
 
+export function loadHassUrl ():string {
+  return String(localStorage.getItem('hass_url'))
+}
+
 export async function saveTokens (tokens?: AuthData | null) {
   try {
     localStorage.setItem('hass_tokens', JSON.stringify(tokens))
@@ -74,10 +78,10 @@ export async function connectToHASS (url: string) {
     } catch (err) {
       try {
         if (err !== ERR_HASS_HOST_REQUIRED) {
-          throw err
+          return Promise.reject(err)
         }
         if (err !== ERR_INVALID_AUTH) {
-          throw err
+          return Promise.reject(err)
         }
         // We can get invalid auth if auth tokens were stored that are no longer valid
         // Clear stored tokens.
@@ -89,7 +93,7 @@ export async function connectToHASS (url: string) {
         })
         connection = await createConnection({ auth })
       } catch (err) {
-        throw err
+        return Promise.reject(err)
       }
     }
     store.commit('setConnected', true)
@@ -102,10 +106,9 @@ export async function connectToHASS (url: string) {
     subscribeEntities(connection, (entities: HassEntities) => {
       store.commit('setHassEntities', entities)
     })
-    getUser(connection).then((user: HassUser) => {
+    return getUser(connection).then((user: HassUser) => {
       console.log('Logged into Home Assistant as', user.name)
       store.commit('setHassUser', user)
-      router.push('/')
     })
   }
 }

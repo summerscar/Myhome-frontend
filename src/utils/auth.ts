@@ -90,7 +90,7 @@ export async function parseTokens () {
       if (data) {
         await saveTokens(data)
         window.location.replace(
-          window.location.href.replace(window.location.search, '')
+          window.location.href = '/'
         )
       }
     }
