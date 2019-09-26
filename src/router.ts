@@ -35,10 +35,11 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   if (!store.state.connected && loadTokens() && loadHassUrl()) {
+    console.log('login...')
     connectToHASS(loadHassUrl()).then(() => {
       next()
     }).catch(() => {
-      next('/login')
+      next({ name: 'login', params: { error: '1' } })
     })
   } else if (!store.state.connected && to.name !== 'login') {
     next({ path: '/login' })

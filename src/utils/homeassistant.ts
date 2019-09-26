@@ -76,21 +76,23 @@ export async function connectToHASS (url: string) {
     try {
       connection = await createConnection({ auth })
     } catch (err) {
+      if (err !== ERR_HASS_HOST_REQUIRED) {
+        store.commit('setConnected', false)
+        return Promise.reject(err)
+      }
+      if (err !== ERR_INVALID_AUTH) {
+        store.commit('setConnected', false)
+        return Promise.reject(err)
+      }
+      // We can get invalid auth if auth tokens were stored that are no longer valid
+      // Clear stored tokens.
+      saveTokens()
+      auth = await getAuth({
+        hassUrl: url,
+        saveTokens: saveTokens,
+        loadTokens: () => Promise.resolve(loadTokens())
+      })
       try {
-        if (err !== ERR_HASS_HOST_REQUIRED) {
-          return Promise.reject(err)
-        }
-        if (err !== ERR_INVALID_AUTH) {
-          return Promise.reject(err)
-        }
-        // We can get invalid auth if auth tokens were stored that are no longer valid
-        // Clear stored tokens.
-        saveTokens()
-        auth = await getAuth({
-          hassUrl: url,
-          saveTokens: saveTokens,
-          loadTokens: () => Promise.resolve(loadTokens())
-        })
         connection = await createConnection({ auth })
       } catch (err) {
         return Promise.reject(err)

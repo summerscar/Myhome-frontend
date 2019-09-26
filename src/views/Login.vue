@@ -14,6 +14,9 @@
         </mu-text-field><br/>
         <mu-button color="primary" @click="login">Next</mu-button>
     </mu-container>
+    <mu-alert class="alert" color="error" delete v-if="alert" @delete="alert = false" transition="mu-scale-transition">
+      <mu-icon left value=":fa fa-exclamation-triangle"></mu-icon> Auto login failed!
+    </mu-alert>
   </div>
 </template>
 
@@ -25,6 +28,7 @@ import { connectToHASS, loadTokens } from '@/utils/homeassistant'
 export default class Login extends Vue {
     private hassUrl: string = 'http://localhost:8123'
     private invalidText: string = ''
+    private alert: boolean = false
 
     @Watch('hassUrl')
     function (url: string, oldval: string) {
@@ -49,13 +53,19 @@ export default class Login extends Vue {
         this.$router.push({ path: '/' })
       })
     }
-    created () {
-
+    mounted () {
+      if (this.$route.params.error) {
+        this.alert = true
+      }
     }
 }
 </script>
 <style lang="scss" scoped>
 div.hassurl {
     margin: 20px 0 40px;
+}
+.alert {
+  position: fixed;
+  bottom: 0;
 }
 </style>
