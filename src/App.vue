@@ -30,6 +30,7 @@ export default class App extends Vue {
 </script>
 <style lang="scss">
 @import url('./styles/common.scss');
+@import '~material-design-icons/iconfont/material-icons.css';
 
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;

@@ -53,6 +53,7 @@ export default new Vuex.Store({
       state.hassConfig = config
     },
     setHassEntities (state, entities: HassEntities) {
+      console.log('change: hassEntities', entities)
       state.hassEntities = entities
     },
     setHassUser (state, user: HassUser) {

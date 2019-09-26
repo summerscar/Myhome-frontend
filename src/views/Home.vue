@@ -4,13 +4,14 @@
     <home-header ref="header" :hassUser="hassUser" @exit="logout"></home-header>
     <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
     <mu-container :style="containerStyle">
-      <mu-row gutter>
+      <mu-row wrap="wrap">
         <time-card></time-card>
+        <light-card :entity="hassEntities['light.yeelight_test']"></light-card>
       </mu-row>
       <mu-list>
         <mu-list-item v-for="(entity, name) in hassEntities" :key="name" button :ripple="false">
           <mu-list-item-action>
-            <mu-icon value=":fa fa-laptop"></mu-icon>
+            <mu-icon value="home"></mu-icon>
           </mu-list-item-action>
           <mu-list-item-title>{{ name }}</mu-list-item-title>
         </mu-list-item>
@@ -24,6 +25,7 @@ import { Component, Vue } from 'vue-property-decorator'
 import Background from '@/components/Background.vue' // @ is an alias to /src
 import Header from '@/components/Header.vue'
 import TimeCard from '@/components/cards/Time.vue'
+import LightCard from '@/components/cards/Light.vue'
 
 import {
   State,
@@ -43,7 +45,8 @@ import {
   components: {
     Background,
     HomeHeader: Header,
-    TimeCard
+    TimeCard,
+    LightCard
   }
 })
 export default class Home extends Vue {

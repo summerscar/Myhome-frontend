@@ -37,6 +37,18 @@ export async function saveTokens (tokens?: AuthData | null) {
   } catch (err) {}
 }
 
+export interface HomeAssistantEntityProps {
+  hassAuth: Auth;
+  hassConfig: HassConfig;
+  hassEntities: HassEntities;
+}
+export interface HomeAssistantChangeProps extends HomeAssistantEntityProps {
+  handleHassChange?: (
+    domain: string,
+    state: string | boolean,
+    data?: any
+  ) => void;
+}
 export function handleChange (
   domain: string,
   state: string | boolean,

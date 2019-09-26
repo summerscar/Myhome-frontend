@@ -1,7 +1,17 @@
 <template>
-  <card>
-    <div>
-      {{ formatted }}
+  <card
+    width="2"
+    borderColor="none"
+    backgroundColor="transparent"
+  >
+    <div class="time">
+      <span class="hour">{{ timeFormat('HH') }}</span>
+      <span class="minute">
+        {{ timeFormat('mm') }}
+      </span>
+    </div>
+    <div class="date">
+      <span>{{ timeFormat('MM - DD') }} {{ day }}</span>
     </div>
   </card>
 </template>
@@ -18,20 +28,21 @@ import dayjs from 'dayjs'
 })
 export default class Time extends Vue {
   @Prop({ default: 'HH:mm:ss' }) readonly format?:string
+
   private date: Date = new Date()
-  private timer: ReturnType<typeof setInterval> = 0
+  private timer: ReturnType<typeof setInterval> | undefined
+
+  private days:Array<string> = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
 
   get formatted (): string {
     return dayjs(this.date).format(this.format)
   }
-  get hour (): number {
-    return dayjs(this.date).hour()
+  get day (): string {
+    return this.days[dayjs(this.date).day()]
   }
-  get minute (): number {
-    return dayjs(this.date).minute()
-  }
-  get second (): number {
-    return dayjs(this.date).second()
+
+  timeFormat (type: string): string {
+    return dayjs(this.date).format(type)
   }
   created () {
     this.timer = setInterval(() => {
@@ -45,5 +56,19 @@ export default class Time extends Vue {
 </script>
 
 <style lang="scss" scoped>
-
+div.time {
+  user-select: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  span {
+    padding: 0 5px;
+  }
+  span.hour {
+    font-size: 3.8rem;
+  }
+  span.minute {
+    font-size: 1.5rem;
+  }
+}
 </style>
