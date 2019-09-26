@@ -3,12 +3,12 @@
     width="1"
     height="1"
   >
-    <mu-ripple tag="div" color="red" :opacity="0.5" class="light" :style="styles">
+    <div color="red" :opacity="0.5" class="light" :style="styles" v-rippuru:styles.colorv @click="toggle">
       <div class="name">{{ entity.attributes.friendly_name }}</div>
       <div class="icon">
         <mu-icon value=":fa fa-lightbulb-o"></mu-icon>
       </div>
-    </mu-ripple>
+    </div>
   </card>
 </template>
 

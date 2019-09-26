@@ -5,10 +5,12 @@ import store from './store'
 import MuseUI from 'muse-ui'
 import 'muse-ui/dist/muse-ui.css'
 import './registerServiceWorker'
+import Rippuru from 'rippuru'
 
 Vue.config.productionTip = false
 
 Vue.use(MuseUI)
+Vue.use(Rippuru)
 
 new Vue({
   router,

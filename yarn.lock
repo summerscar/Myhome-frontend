@@ -9235,6 +9235,11 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
     hash-base "^3.0.0"
     inherits "^2.0.1"
 
+rippuru@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/rippuru/-/rippuru-0.0.5.tgz#614d7d798694384f480e287fdbb3e68a894a811a"
+  integrity sha512-21znZCehSoknkWVHtvGmBYZSfBP0ffTIx/rg8fhGznRyn6Ztku9D0NctVVt7I109/3QCcaqX4xOgSdWnuX/QWQ==
+
 rsvp@^3.3.3:
   version "3.6.2"
   resolved "https://registry.npm.taobao.org/rsvp/download/rsvp-3.6.2.tgz#2e96491599a96cde1b515d5674a8f7a91452926a"
