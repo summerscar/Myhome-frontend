@@ -73,8 +73,8 @@ export function handleChange (
   }
 }
 
-function eventHandler () {
-  console.log('Home Assistant connection has been established again.')
+function eventHandler (connection: Connection, data: any) {
+  console.warn('Connection has been established again', data)
 }
 
 export async function connectToHASS (url: string) {
@@ -111,8 +111,9 @@ export async function connectToHASS (url: string) {
       }
     }
     store.commit('setConnected', true)
-    connection.removeEventListener('ready', eventHandler)
-    connection.addEventListener('ready', eventHandler)
+    // connection.addEventListener('ready', eventHandler)
+    connection.addEventListener('disconnected', eventHandler)
+    connection.addEventListener('reconnect-error', eventHandler)
     store.commit('setAuth', auth)
     subscribeConfig(connection, (config: HassConfig) => {
       store.commit('setHassConfig', config)
