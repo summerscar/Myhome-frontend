@@ -1,7 +1,7 @@
 <template>
   <card
-    width="2"
-    height="1"
+    :width="width"
+    :height="height"
     borderColor="none"
     backgroundColor="transparent"
   >
@@ -28,6 +28,8 @@ import dayjs from 'dayjs'
   }
 })
 export default class Time extends Vue {
+  @Prop({ default: '2' }) readonly width?:string | number
+  @Prop({ default: '1' }) readonly height?:string | number
   @Prop({ default: 'HH:mm:ss' }) readonly format?:string
 
   private date: Date = new Date()

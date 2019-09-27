@@ -1,8 +1,8 @@
 <template>
   <card
     class="weather"
-    width="2"
-    height="2"
+    :width="width"
+    :height="height"
   >
     <mu-flex class="name" justify-content="center">
       {{ entity.attributes.friendly_name }}
@@ -42,6 +42,8 @@ import dayjs from 'dayjs'
   }
 })
 export default class Weather extends Vue {
+  @Prop({ default: '2' }) readonly width?:string | number
+  @Prop({ default: '2' }) readonly height?:string | number
   @Prop() readonly entity!: HassEntity
   private dayjs:Function = dayjs
   private days:Array<string> = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']

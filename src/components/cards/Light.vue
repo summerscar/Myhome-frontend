@@ -1,7 +1,7 @@
 <template>
   <card
-    width="1"
-    height="1"
+    :width="width"
+    :height="height"
   >
     <div color="red" :opacity="0.5" class="light" :style="styles" v-rippuru:styles.colorv @click="toggle">
       <div class="name">{{ entity.attributes.friendly_name }}</div>
@@ -24,6 +24,8 @@ import { handleChange as hassHandleChange } from '@/utils/homeassistant'
   }
 })
 export default class Light extends Vue {
+  @Prop({ default: '1' }) readonly width?:string | number
+  @Prop({ default: '1' }) readonly height?:string | number
   @Prop() readonly entity!: HassEntity
 
   get state ():boolean {

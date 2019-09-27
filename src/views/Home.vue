@@ -8,6 +8,7 @@
         <time-card></time-card>
         <light-card :entity="hassEntities['light.yeelight_test']"></light-card>
         <weather-card :entity="hassEntities['weather.jia']"></weather-card>
+        <iframe-card url="//music.163.com/outchain/player?type=2&id=31134835&auto=0&height=66"></iframe-card>
       </mu-row>
       <mu-list>
         <mu-list-item v-for="(entity, name) in hassEntities" :key="name" button :ripple="false">
@@ -24,10 +25,11 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import Background from '@/components/Background.vue' // @ is an alias to /src
-import Header from '@/components/Header.vue'
+import HomeHeader from '@/components/Header.vue'
 import TimeCard from '@/components/cards/Time.vue'
 import LightCard from '@/components/cards/Light.vue'
 import WeatherCard from '@/components/cards/Weather.vue'
+import IframeCard from '@/components/cards/Iframe.vue'
 
 import {
   State,
@@ -46,10 +48,11 @@ import {
 @Component({
   components: {
     Background,
-    HomeHeader: Header,
+    HomeHeader,
     TimeCard,
     LightCard,
-    WeatherCard
+    WeatherCard,
+    IframeCard
   }
 })
 export default class Home extends Vue {
