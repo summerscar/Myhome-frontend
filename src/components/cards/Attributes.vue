@@ -1,0 +1,57 @@
+<template>
+  <card
+    v-if="entity['entity_id']"
+    class="attributes"
+    :width="width"
+    :height="height"
+  >
+    <mu-flex class="name" justify-content="center">
+      {{ entity.attributes.friendly_name }}
+    </mu-flex>
+    <mu-flex class="state" justify-content="center">
+      <div>
+        {{ entity.state }} {{ unit }}
+      </div>
+    </mu-flex>
+    <mu-flex v-if="attributes.length" class="attributes" wrap="wrap" justify-content="center">
+      <mu-flex
+        class="attribute"
+        v-for="(attribute, index) in attributes"
+        :key="index"
+        justify-content="center"
+      >
+        <div class="label">{{ attribute }}</div>
+        <div class="value">{{ entity.attributes[attribute] }}</div>
+      </mu-flex>
+    </mu-flex>
+  </card>
+</template>
+
+<script lang="ts">
+import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
+import { HassEntity } from 'home-assistant-js-websocket'
+import Card from '@/components/Card.vue'
+
+@Component({
+  components: {
+    Card
+  }
+})
+export default class Attributes extends Vue {
+  @Prop({ default: '1' }) readonly width?:string | number
+  @Prop({ default: '1' }) readonly height?:string | number
+  @Prop({ default: true }) readonly showState?:boolean
+  @Prop({ default: '' }) readonly unit?:string
+  @Prop({ default: () => [] }) readonly attributes?:Array<object>
+  @Prop() readonly entity!: HassEntity
+}
+</script>
+
+<style lang="scss" scoped>
+.attributes {
+  user-select: none;
+}
+.name, .state, .attributes, .attribute{
+  width: 100%;
+}
+</style>

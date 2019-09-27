@@ -87,8 +87,10 @@ export default class Weather extends Vue {
       updateStr = Math.floor(dayC) + ' day ago'
     } else if (hourC > 1) {
       updateStr = Math.floor(hourC) + ' hour ago'
-    } else {
+    } else if (minC > 1) {
       updateStr = Math.floor(minC) + ' min ago'
+    } else {
+      updateStr = 'recently'
     }
     return updateStr
   }

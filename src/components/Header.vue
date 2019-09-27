@@ -1,5 +1,5 @@
 <template>
-  <mu-appbar class="header" style="width: 100%;" title="Title" color="rgba(27, 27, 27, 0.45)">
+  <mu-appbar class="header" style="width: 100%;" title="My home" color="rgba(27, 27, 27, 0.45)">
     <mu-menu slot="right">
       <mu-button flat>
         <mu-avatar text-color="deepOrange300" color="purple500">

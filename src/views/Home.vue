@@ -9,6 +9,11 @@
         <light-card :entity="hassEntities['light.yeelight_test']"></light-card>
         <weather-card :entity="hassEntities['weather.jia']"></weather-card>
         <iframe-card url="//music.163.com/outchain/player?type=2&id=31134835&auto=0&height=66"></iframe-card>
+        <attributes-card :entity="hassEntities['sensor.asuswrt_download']" unit="GB"></attributes-card>
+        <attributes-card :entity="hassEntities['sensor.asuswrt_upload']" unit="GB"></attributes-card>
+        <attributes-card :entity="hassEntities['sensor.asuswrt_download_speed']" unit="Mbit/s"></attributes-card>
+        <attributes-card :entity="hassEntities['sensor.asuswrt_upload_speed']" unit="Mbit/s"></attributes-card>
+        <attributes-card :entity="hassEntities['device_tracker.shenyudembp']"></attributes-card>
       </mu-row>
       <mu-list>
         <mu-list-item v-for="(entity, name) in hassEntities" :key="name" button :ripple="false">
@@ -30,6 +35,7 @@ import TimeCard from '@/components/cards/Time.vue'
 import LightCard from '@/components/cards/Light.vue'
 import WeatherCard from '@/components/cards/Weather.vue'
 import IframeCard from '@/components/cards/Iframe.vue'
+import AttributesCard from '@/components/cards/Attributes.vue'
 
 import {
   State,
@@ -52,7 +58,8 @@ import {
     TimeCard,
     LightCard,
     WeatherCard,
-    IframeCard
+    IframeCard,
+    AttributesCard
   }
 })
 export default class Home extends Vue {
