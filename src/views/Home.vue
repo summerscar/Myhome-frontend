@@ -5,24 +5,25 @@
     <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
     <mu-container :style="containerStyle">
       <mu-row wrap="wrap">
-        <time-card></time-card>
+        <time-card width="10"></time-card>
         <light-card :entity="hassEntities['light.yeelight_test']"></light-card>
         <weather-card :entity="hassEntities['weather.jia']"></weather-card>
-        <iframe-card url="//music.163.com/outchain/player?type=2&id=31134835&auto=0&height=66"></iframe-card>
+        <iframe-card url="//music.163.com/outchain/player?type=2&id=31134835&auto=0&height=66" width="2" height="0.8"></iframe-card>
         <attributes-card :entity="hassEntities['sensor.asuswrt_download']" unit="GB"></attributes-card>
         <attributes-card :entity="hassEntities['sensor.asuswrt_upload']" unit="GB"></attributes-card>
         <attributes-card :entity="hassEntities['sensor.asuswrt_download_speed']" unit="Mbit/s"></attributes-card>
         <attributes-card :entity="hassEntities['sensor.asuswrt_upload_speed']" unit="Mbit/s"></attributes-card>
         <attributes-card :entity="hassEntities['device_tracker.shenyudembp']"></attributes-card>
+        <camera-card :entity="hassEntities['camera.uvc_g3_flex']"></camera-card>
       </mu-row>
-      <mu-list>
+      <!-- <mu-list>
         <mu-list-item v-for="(entity, name) in hassEntities" :key="name" button :ripple="false">
           <mu-list-item-action>
             <mu-icon value="home"></mu-icon>
           </mu-list-item-action>
           <mu-list-item-title>{{ name }}</mu-list-item-title>
         </mu-list-item>
-      </mu-list>
+      </mu-list> -->
     </mu-container>
   </div>
 </template>
@@ -36,6 +37,7 @@ import LightCard from '@/components/cards/Light.vue'
 import WeatherCard from '@/components/cards/Weather.vue'
 import IframeCard from '@/components/cards/Iframe.vue'
 import AttributesCard from '@/components/cards/Attributes.vue'
+import CameraCard from '@/components/cards/Camera.vue'
 
 import {
   State,
@@ -59,7 +61,8 @@ import {
     LightCard,
     WeatherCard,
     IframeCard,
-    AttributesCard
+    AttributesCard,
+    CameraCard
   }
 })
 export default class Home extends Vue {

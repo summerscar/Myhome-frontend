@@ -34,7 +34,7 @@ export default class Light extends Vue {
   get styles () {
     return {
       color: this.state ? `rgb(${this.entity.attributes.rgb_color.join(',')})` : 'grey',
-      opacity: this.state ? '1' : '0.5'
+      opacity: this.state ? '1' : '0.75'
     }
   }
   toggle () {

@@ -35,6 +35,7 @@ export default class Card extends Vue {
 .card {
   margin: 10px;
   transition: .3s box-shadow;
+  position: relative;
   &:hover {
     box-shadow: 0 0 2px 3px rgba(0, 0, 0, 0.45);
   }

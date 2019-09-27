@@ -22,8 +22,8 @@ import Card from '@/components/Card.vue'
   }
 })
 export default class Iframe extends Vue {
-  @Prop({ default: '2.3' }) readonly width?:string | number
-  @Prop({ default: '0.8' }) readonly height?:string | number
+  @Prop({ default: '2' }) readonly width?:string | number
+  @Prop({ default: '2' }) readonly height?:string | number
   @Prop({ default: 'http://www.example.com/' }) readonly url?:string
 }
 </script>
