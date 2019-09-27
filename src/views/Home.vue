@@ -7,6 +7,7 @@
       <mu-row wrap="wrap">
         <time-card></time-card>
         <light-card :entity="hassEntities['light.yeelight_test']"></light-card>
+        <weather-card :entity="hassEntities['weather.jia']"></weather-card>
       </mu-row>
       <mu-list>
         <mu-list-item v-for="(entity, name) in hassEntities" :key="name" button :ripple="false">
@@ -26,6 +27,7 @@ import Background from '@/components/Background.vue' // @ is an alias to /src
 import Header from '@/components/Header.vue'
 import TimeCard from '@/components/cards/Time.vue'
 import LightCard from '@/components/cards/Light.vue'
+import WeatherCard from '@/components/cards/Weather.vue'
 
 import {
   State,
@@ -46,7 +48,8 @@ import {
     Background,
     HomeHeader: Header,
     TimeCard,
-    LightCard
+    LightCard,
+    WeatherCard
   }
 })
 export default class Home extends Vue {

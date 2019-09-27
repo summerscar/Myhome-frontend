@@ -1,6 +1,7 @@
 <template>
   <card
     width="2"
+    height="1"
     borderColor="none"
     backgroundColor="transparent"
   >
@@ -58,6 +59,7 @@ export default class Time extends Vue {
 <style lang="scss" scoped>
 div.time {
   user-select: none;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -70,5 +72,8 @@ div.time {
   span.minute {
     font-size: 1.5rem;
   }
+}
+div.date {
+  width: 100%;
 }
 </style>

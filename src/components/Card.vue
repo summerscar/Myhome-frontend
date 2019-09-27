@@ -1,10 +1,13 @@
 <template>
-  <div
+  <mu-flex
+    justify-content="center"
+    align-items="center"
+    wrap="wrap"
     :style="styles"
     class="card"
   >
     <slot></slot>
-  </div>
+  </mu-flex>
 </template>
 
 <script lang="ts">
@@ -33,7 +36,7 @@ export default class Card extends Vue {
   margin: 10px;
   transition: .3s box-shadow;
   &:hover {
-    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.45);
+    box-shadow: 0 0 2px 3px rgba(0, 0, 0, 0.45);
   }
 }
 </style>
