@@ -1,5 +1,6 @@
 <template>
   <card
+    v-if="entity['entity_id']"
     class="weather"
     :width="width"
     :height="height"
@@ -26,6 +27,9 @@
         </div>
         <div class="temperature">{{ day.temperature }}°</div>
       </mu-flex>
+    </mu-flex>
+    <mu-flex class="update" direction="row-reverse">
+      <div>{{ formatUpdate(entity['last_updated']) }}</div>
     </mu-flex>
   </card>
 </template>
@@ -64,6 +68,30 @@ export default class Weather extends Vue {
     windy: 'weather-windy',
     'windy-variant': 'weather-windy-variant'
   }
+
+  formatUpdate (time: string):string {
+    let updateTime = new Date(time).valueOf()
+    let now = new Date().valueOf()
+    const minute = 1000 * 60
+    const hour = minute * 60
+    const day = hour * 24
+
+    let diffValue = now - updateTime
+
+    let dayC = diffValue / day
+    let hourC = diffValue / hour
+    let minC = diffValue / minute
+
+    let updateStr
+    if (dayC > 1) {
+      updateStr = Math.floor(dayC) + ' day ago'
+    } else if (hourC > 1) {
+      updateStr = Math.floor(hourC) + ' hour ago'
+    } else {
+      updateStr = Math.floor(minC) + ' min ago'
+    }
+    return updateStr
+  }
 }
 </script>
 
@@ -93,6 +121,10 @@ export default class Weather extends Vue {
     &>.day {
       width: 100%;
     }
+  }
+  .update {
+    width: 100%;
+    padding: 0 1rem;
   }
 }
 </style>
