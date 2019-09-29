@@ -1,24 +1,27 @@
 <template>
   <card
-    v-if="entity['entity_id']"
+    v-if="entity"
     class="attributes"
     :width="width"
     :height="height"
+    :borderColor="borderColor"
+    :backgroundColor="backgroundColor"
   >
-    <mu-flex class="name" justify-content="center">
+    <mu-flex class="name" justify-content="center" align-items="center">
       {{ entity.attributes.friendly_name }}
     </mu-flex>
-    <mu-flex class="state" justify-content="center">
+    <mu-flex class="state" justify-content="center" align-items="center">
       <div>
         {{ entity.state }} {{ unit }}
       </div>
     </mu-flex>
-    <mu-flex v-if="attributes.length" class="attributes" wrap="wrap" justify-content="center">
+    <mu-flex v-if="attributes.length" class="attributes" wrap="wrap" justify-content="center" align-items="center">
       <mu-flex
         class="attribute"
         v-for="(attribute, index) in attributes"
         :key="index"
         justify-content="center"
+        align-items="center"
       >
         <div class="label">{{ attribute }}</div>
         <div class="value">{{ entity.attributes[attribute] }}</div>
@@ -40,6 +43,8 @@ import Card from '@/components/Card.vue'
 export default class Attributes extends Vue {
   @Prop({ default: '1' }) readonly width?:string | number
   @Prop({ default: '1' }) readonly height?:string | number
+  @Prop() readonly borderColor?:string
+  @Prop() readonly backgroundColor?:string
   @Prop({ default: true }) readonly showState?:boolean
   @Prop({ default: '' }) readonly unit?:string
   @Prop({ default: () => [] }) readonly attributes?:Array<object>

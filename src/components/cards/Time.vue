@@ -2,8 +2,8 @@
   <card
     :width="width"
     :height="height"
-    borderColor="none"
-    backgroundColor="transparent"
+    :borderColor="borderColor"
+    :backgroundColor="backgroundColor"
   >
     <div class="time">
       <span class="hour">{{ timeFormat('HH') }}</span>
@@ -31,6 +31,8 @@ export default class Time extends Vue {
   @Prop({ default: '2' }) readonly width?:string | number
   @Prop({ default: '1' }) readonly height?:string | number
   @Prop({ default: 'HH:mm:ss' }) readonly format?:string
+  @Prop() readonly borderColor?:string
+  @Prop() readonly backgroundColor?:string
 
   private date: Date = new Date()
   private timer: ReturnType<typeof setInterval> | undefined

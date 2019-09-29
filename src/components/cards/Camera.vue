@@ -3,6 +3,8 @@
       :width="width"
       :height="height"
       v-if="entity"
+      :borderColor="borderColor"
+      :backgroundColor="backgroundColor"
     >
       <mu-flex class="camera">
         <img
@@ -31,6 +33,8 @@ export default class Camera extends Vue {
   @Prop({ default: '3' }) readonly width?:string | number
   @Prop({ default: '2' }) readonly height?:string | number
   @Prop() readonly entity!: HassEntity
+  @Prop() readonly borderColor?:string
+  @Prop() readonly backgroundColor?:string
 
   @Getter('hassAuth') hassAuth!:Auth;
 

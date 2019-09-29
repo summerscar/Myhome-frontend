@@ -2,6 +2,8 @@
     <card
       :width="width"
       :height="height"
+      :borderColor="borderColor"
+      :backgroundColor="backgroundColor"
     >
       <iframe
         class="iframe"
@@ -25,6 +27,8 @@ export default class Iframe extends Vue {
   @Prop({ default: '2' }) readonly width?:string | number
   @Prop({ default: '2' }) readonly height?:string | number
   @Prop({ default: 'http://www.example.com/' }) readonly url?:string
+  @Prop() readonly borderColor?:string
+  @Prop() readonly backgroundColor?:string
 }
 </script>
 

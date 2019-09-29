@@ -4,6 +4,8 @@
     class="weather"
     :width="width"
     :height="height"
+    :borderColor="borderColor"
+    :backgroundColor="backgroundColor"
   >
     <mu-flex class="name" justify-content="center">
       {{ entity.attributes.friendly_name }}
@@ -48,6 +50,8 @@ import dayjs from 'dayjs'
 export default class Weather extends Vue {
   @Prop({ default: '2' }) readonly width?:string | number
   @Prop({ default: '2' }) readonly height?:string | number
+  @Prop() readonly borderColor?:string
+  @Prop() readonly backgroundColor?:string
   @Prop() readonly entity!: HassEntity
   private dayjs:Function = dayjs
   private days:Array<string> = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
@@ -99,7 +103,7 @@ export default class Weather extends Vue {
 
 <style lang="scss" scoped>
 .weather {
-  padding: 0.8rem;
+  padding: 0.5rem;
   user-select: none;
   .name {
     font-size: 1.5rem;

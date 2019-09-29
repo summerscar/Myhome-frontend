@@ -5,10 +5,10 @@
     <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
     <mu-container :style="containerStyle">
       <mu-row wrap="wrap">
-        <time-card width="10"></time-card>
+        <time-card width="10" borderColor="none" backgroundColor="transparent"></time-card>
         <light-card :entity="hassEntities['light.yeelight_test']"></light-card>
         <weather-card :entity="hassEntities['weather.jia']"></weather-card>
-        <iframe-card url="//music.163.com/outchain/player?type=2&id=31134835&auto=0&height=66" width="2" height="0.8"></iframe-card>
+        <iframe-card borderColor="none" url="//music.163.com/outchain/player?type=2&id=31134835&auto=0&height=66" width="2" height="0.8"></iframe-card>
         <attributes-card :entity="hassEntities['sensor.asuswrt_download']" unit="GB"></attributes-card>
         <attributes-card :entity="hassEntities['sensor.asuswrt_upload']" unit="GB"></attributes-card>
         <attributes-card :entity="hassEntities['sensor.asuswrt_download_speed']" unit="Mbit/s"></attributes-card>

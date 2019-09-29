@@ -1,6 +1,6 @@
 <template>
   <mu-flex
-    justify-content="center"
+    justify-content="around"
     align-items="center"
     wrap="wrap"
     :style="styles"
