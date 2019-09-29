@@ -69,7 +69,7 @@ export default class Light extends Vue {
       brightness: value
     })
     console.log('set ' + this.entity.entity_id + ' brightness:', value)
-  }, 1000)
+  }, 1000, this)
 }
 </script>
 

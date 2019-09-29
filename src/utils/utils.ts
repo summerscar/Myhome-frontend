@@ -1,10 +1,11 @@
-export function debounce (callback: Function, time: number) {
+import Vue from 'vue'
+
+export function debounce (callback: Function, time: number, self: Vue) {
   let recent = +new Date()
   let timer:number
 
   return function () {
     let args = arguments
-    let self:any = this
     let now = +new Date()
     function exec () {
       recent = now
