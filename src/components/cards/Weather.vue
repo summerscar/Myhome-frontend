@@ -1,6 +1,6 @@
 <template>
   <card
-    v-if="entity['entity_id']"
+    v-if="entity"
     class="weather"
     :width="width"
     :height="height"

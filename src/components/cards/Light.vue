@@ -2,6 +2,7 @@
   <card
     :width="width"
     :height="height"
+    v-if="entity"
   >
     <div color="red" :opacity="0.5" class="light" :style="styles" v-rippuru:styles.colorv @click="toggle">
       <div class="name">{{ entity.attributes.friendly_name }}</div>

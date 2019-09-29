@@ -2,6 +2,7 @@
     <card
       :width="width"
       :height="height"
+      v-if="entity"
     >
       <mu-flex class="camera">
         <img
