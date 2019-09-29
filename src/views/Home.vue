@@ -15,6 +15,7 @@
         <attributes-card :entity="hassEntities['sensor.asuswrt_upload_speed']" unit="Mbit/s"></attributes-card>
         <attributes-card :entity="hassEntities['device_tracker.shenyudembp']"></attributes-card>
         <camera-card :entity="hassEntities['camera.uvc_g3_flex']"></camera-card>
+        <sensor-card :entity="hassEntities['sensor.asuswrt_upload_speed']"></sensor-card>
       </mu-row>
       <!-- <mu-list>
         <mu-list-item v-for="(entity, name) in hassEntities" :key="name" button :ripple="false">
@@ -38,6 +39,7 @@ import WeatherCard from '@/components/cards/Weather.vue'
 import IframeCard from '@/components/cards/Iframe.vue'
 import AttributesCard from '@/components/cards/Attributes.vue'
 import CameraCard from '@/components/cards/Camera.vue'
+import SensorCard from '@/components/cards/Sensor.vue'
 import Message from '@/components/message/index'
 import {
   State,
@@ -63,7 +65,8 @@ import {
     WeatherCard,
     IframeCard,
     AttributesCard,
-    CameraCard
+    CameraCard,
+    SensorCard
   }
 })
 export default class Home extends Vue {
