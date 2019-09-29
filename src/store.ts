@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import {
   Auth,
+  Connection,
   HassConfig,
   HassEntities,
   HassUser
@@ -14,7 +15,8 @@ export default new Vuex.Store({
     hassAuth: {},
     hassConfig: {},
     hassEntities: {},
-    hassUser: {}
+    hassUser: {},
+    hassConnection: {}
   },
   getters: {
     connected (state) {
@@ -31,6 +33,9 @@ export default new Vuex.Store({
     },
     hassUser (state) {
       return state.hassUser
+    },
+    hassConnection (state) {
+      return state.hassConnection
     }
   },
   mutations: {
@@ -58,6 +63,9 @@ export default new Vuex.Store({
     },
     setHassUser (state, user: HassUser) {
       state.hassUser = user
+    },
+    setHassConnection (state, connection: Connection) {
+      state.hassConnection = connection
     }
   },
   actions: {

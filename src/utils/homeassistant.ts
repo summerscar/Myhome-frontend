@@ -15,8 +15,7 @@ import {
   subscribeEntities
 } from 'home-assistant-js-websocket'
 import store from '@/store'
-import router from '@/router'
-
+import Vue from 'vue'
 let connection: Connection, auth: Auth
 
 export function loadTokens () {
@@ -115,6 +114,7 @@ export async function connectToHASS (url: string) {
     connection.addEventListener('disconnected', eventHandler)
     connection.addEventListener('reconnect-error', eventHandler)
     store.commit('setAuth', auth)
+    store.commit('setHassConnection', connection)
     subscribeConfig(connection, (config: HassConfig) => {
       store.commit('setHassConfig', config)
     })
@@ -124,6 +124,7 @@ export async function connectToHASS (url: string) {
     return getUser(connection).then((user: HassUser) => {
       console.log('Logged into Home Assistant as', user.name)
       store.commit('setHassUser', user)
+      return Promise.resolve(connection)
     })
   }
 }
