@@ -4,6 +4,7 @@
       :height="height"
       :borderColor="borderColor"
       :backgroundColor="backgroundColor"
+      :opacity="opacity"
     >
       <iframe
         class="iframe"
@@ -29,6 +30,7 @@ export default class Iframe extends Vue {
   @Prop({ default: 'http://www.example.com/' }) readonly url?:string
   @Prop() readonly borderColor?:string
   @Prop() readonly backgroundColor?:string
+  @Prop() readonly opacity?:string | number
 }
 </script>
 
