@@ -7,11 +7,12 @@
       <mu-row wrap="wrap">
         <time-card width="2" borderColor="none" backgroundColor="transparent"></time-card>
         <weather-card :entity="hassEntities['weather.jia']"></weather-card>
-        <!-- <iframe-card borderColor="none" url="//player.bilibili.com/player.html?aid=67792202&cid=117509299&page=1  " width="4" height="3" opacity="0.8"></iframe-card> -->
+        <iframe-card borderColor="none" url="//player.bilibili.com/player.html?aid=67792202&cid=117509299&page=1  " width="4" height="3" opacity="0.8"></iframe-card>
         <iframe-card borderColor="none" url="//music.163.com/outchain/player?type=2&id=31134835&auto=0&height=66" width="1.5" height="0.8" opacity="0.8"></iframe-card>
         <sensor-card :entity="hassEntities['sensor.asuswrt_upload_speed']"></sensor-card>
         <sensor-card :entity="hassEntities['sensor.asuswrt_download_speed']"></sensor-card>
         <light-card :entity="hassEntities['light.yeelight_test']"></light-card>
+        <switch-card :entity="hassEntities['light.yeelight_test']"></switch-card>
         <attributes-card :entity="hassEntities['sensor.asuswrt_download']"></attributes-card>
         <attributes-card :entity="hassEntities['sensor.asuswrt_upload']"></attributes-card>
         <attributes-card :entity="hassEntities['device_tracker.shenyudembp']"></attributes-card>
@@ -40,6 +41,7 @@ import IframeCard from '@/components/cards/Iframe.vue'
 import AttributesCard from '@/components/cards/Attributes.vue'
 import CameraCard from '@/components/cards/Camera.vue'
 import SensorCard from '@/components/cards/Sensor.vue'
+import SwitchCard from '@/components/cards/Switch.vue'
 import Message from '@/components/message/index'
 import {
   State,
@@ -66,7 +68,8 @@ import {
     IframeCard,
     AttributesCard,
     CameraCard,
-    SensorCard
+    SensorCard,
+    SwitchCard
   }
 })
 export default class Home extends Vue {
