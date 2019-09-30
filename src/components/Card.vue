@@ -34,7 +34,7 @@ export default class Card extends Vue {
 <style lang="scss" scoped>
 .card {
   padding: 0.2rem;
-  margin: 10px;
+  margin: 0.4rem;
   transition: .3s box-shadow;
   position: relative;
   &:hover {

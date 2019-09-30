@@ -1,5 +1,6 @@
 <template>
   <card
+    v-if="entity"
     :width="width"
     :height="height"
     :borderColor="borderColor"
@@ -10,11 +11,12 @@
 </template>
 <script lang="ts">
 import { HassEntity } from 'home-assistant-js-websocket'
-import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
+import { Component, Prop, Vue, Emit, Watch } from 'vue-property-decorator'
 import Card from '@/components/Card.vue'
 import dayjs from 'dayjs'
 import ECharts from 'vue-echarts'
 import 'echarts/lib/chart/line'
+import 'echarts/lib/component/title'
 
 @Component({
   components: {
@@ -30,6 +32,14 @@ export default class Sensor extends Vue {
   @Prop() readonly backgroundColor?:string
   private data: Array<object> = []
   private option = {
+    title: {
+      text: this.entity.attributes.friendly_name,
+      left: 'center',
+      textStyle: {
+        width: '100%',
+        color: '#ffffff'
+      }
+    },
     xAxis: {
       type: 'time',
       splitLine: {
@@ -46,6 +56,7 @@ export default class Sensor extends Vue {
     },
     yAxis: {
       type: 'value',
+      name: this.entity.attributes.unit_of_measurement,
       splitLine: {
         show: false
       },
@@ -58,18 +69,21 @@ export default class Sensor extends Vue {
     series: [{
       data: this.data,
       type: 'line',
-      smooth: true
+      smooth: false
     }]
   }
-
+  @Watch('entity.state')
+  function (value: number, oldvalue:number) {
+    this.data.push({
+      name: dayjs(),
+      value: [new Date(), Number(value)]
+    })
+  }
   mounted () {
-    setInterval(() => {
-      // this.data.push(Number(this.entity.state))
-      this.data.push({
-        name: dayjs(),
-        value: Math.random() * 100
-      })
-    }, 3000)
+    this.data.push({
+      name: dayjs(),
+      value: [new Date(), Number(this.entity.state)]
+    })
   }
 }
 </script>

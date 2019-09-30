@@ -12,7 +12,7 @@
     </mu-flex>
     <mu-flex class="state" justify-content="center" align-items="center">
       <div>
-        {{ entity.state }} {{ unit }}
+        {{ entity.state }} {{ unit || entity.attributes.unit_of_measurement }}
       </div>
     </mu-flex>
     <mu-flex v-if="attributes.length" class="attributes" wrap="wrap" justify-content="center" align-items="center">
