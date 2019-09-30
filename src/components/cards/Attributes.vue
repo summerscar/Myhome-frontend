@@ -10,6 +10,9 @@
     <mu-flex class="name" justify-content="center" align-items="center">
       {{ entity.attributes.friendly_name }}
     </mu-flex>
+    <mu-flex class="icon" justify-content="center" @click="toggle">
+      <mu-icon :value="`:mdi mdi-${icon}`"></mu-icon>
+    </mu-flex>
     <mu-flex class="state" justify-content="center" align-items="center">
       <div>
         {{ entity.state }} {{ unit || entity.attributes.unit_of_measurement }}
@@ -43,11 +46,12 @@ import Card from '@/components/Card.vue'
 export default class Attributes extends Vue {
   @Prop({ default: '1' }) readonly width?:string | number
   @Prop({ default: '1' }) readonly height?:string | number
-  @Prop() readonly borderColor?:string
-  @Prop() readonly backgroundColor?:string
-  @Prop({ default: true }) readonly showState?:boolean
-  @Prop({ default: '' }) readonly unit?:string
-  @Prop({ default: () => [] }) readonly attributes?:Array<object>
+  @Prop({ default: 'access-point' }) readonly icon?: string
+  @Prop() readonly borderColor?: string
+  @Prop() readonly backgroundColor?: string
+  @Prop({ default: true }) readonly showState?: boolean
+  @Prop({ default: '' }) readonly unit?: string
+  @Prop({ default: () => [] }) readonly attributes?: Array<object>
   @Prop() readonly entity!: HassEntity
 }
 </script>
@@ -55,6 +59,9 @@ export default class Attributes extends Vue {
 <style lang="scss" scoped>
 .attributes {
   user-select: none;
+  .icon {
+    font-size: 3rem;
+  }
 }
 .name, .state, .attributes, .attribute{
   width: 100%;
