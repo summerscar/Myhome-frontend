@@ -10,7 +10,7 @@
     <mu-flex class="name" justify-content="center" align-items="center">
       {{ entity.attributes.friendly_name }}
     </mu-flex>
-    <mu-flex class="icon" justify-content="center" @click="toggle">
+    <mu-flex class="icon" justify-content="center">
       <mu-icon :value="`:mdi mdi-${icon}`"></mu-icon>
     </mu-flex>
     <mu-flex class="state" justify-content="center" align-items="center">

@@ -45,7 +45,7 @@ export default class Light extends Vue {
   @Prop() readonly borderColor?:string
   @Prop() readonly backgroundColor?:string
 
-  private brightness: number = Math.floor((this.entity.attributes.brightness + 245) / 500)
+  private brightness: number = Math.floor(this.entity.attributes.brightness / 255 * 100)
 
   get state ():boolean {
     return this.entity.state === 'on'
