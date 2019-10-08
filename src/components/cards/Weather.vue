@@ -22,12 +22,12 @@
     </mu-flex>
     <mu-flex class="forecast" wrap="wrap">
       <mu-flex class="day" justify-content="around" v-for="(day, index) in entity.attributes.forecast" :key="index">
-        <div class="date">{{ dayjs(day.datetime).format('MM-DD') }}</div>
-        <div class="day">{{ days[dayjs(day.datetime).day()] }}</div>
-        <div>
+        <div class="date item">{{ dayjs(day.datetime).format('MM-DD') }}</div>
+        <div class="day item">{{ days[dayjs(day.datetime).day()] }}</div>
+        <div class="item">
           <mu-icon :value="`:mdi mdi-${weatherIcon[day.condition]}`"></mu-icon>
         </div>
-        <div class="temperature">{{ day.temperature }}°</div>
+        <div class="temperature item">{{ day.temperature }}°</div>
       </mu-flex>
     </mu-flex>
     <mu-flex class="update" direction="row-reverse">
@@ -126,6 +126,9 @@ export default class Weather extends Vue {
     width: 100%;
     &>.day {
       width: 100%;
+      .item {
+        width: 25%;
+      }
     }
   }
   .update {

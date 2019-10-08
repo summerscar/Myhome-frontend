@@ -13,6 +13,7 @@
         <sensor-card :entity="hassEntities['sensor.asuswrt_download_speed']"></sensor-card>
         <light-card :entity="hassEntities['light.yeelight_test']"></light-card>
         <switch-card :entity="hassEntities['light.yeelight_test']"></switch-card>
+        <cover-card :entity="hassEntities['light.yeelight_test']"></cover-card>
         <attributes-card :entity="hassEntities['sensor.asuswrt_download']"></attributes-card>
         <attributes-card :entity="hassEntities['sensor.asuswrt_upload']"></attributes-card>
         <attributes-card :entity="hassEntities['device_tracker.shenyudembp']"></attributes-card>
@@ -42,6 +43,7 @@ import AttributesCard from '@/components/cards/Attributes.vue'
 import CameraCard from '@/components/cards/Camera.vue'
 import SensorCard from '@/components/cards/Sensor.vue'
 import SwitchCard from '@/components/cards/Switch.vue'
+import CoverCard from '@/components/cards/Cover.vue'
 import Message from '@/components/message/index'
 import {
   State,
@@ -69,7 +71,8 @@ import {
     AttributesCard,
     CameraCard,
     SensorCard,
-    SwitchCard
+    SwitchCard,
+    CoverCard
   }
 })
 export default class Home extends Vue {
