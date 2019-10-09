@@ -1,7 +1,7 @@
 <template>
   <mu-flex
-    justify-content="around"
-    align-items="center"
+    :justify-content="justifyContent"
+    :align-items="alignItems"
     wrap="wrap"
     :style="styles"
     class="card"
@@ -20,6 +20,8 @@ export default class Card extends Vue {
   @Prop({ default: 1 }) readonly opacity?: number | string
   @Prop({ default: 'rgba(255, 255, 255, 0.3)' }) readonly borderColor?: string
   @Prop({ default: 'rgba(0,0,0,0.25)' }) readonly backgroundColor?: string
+  @Prop({ default: 'around' }) readonly justifyContent?: string
+  @Prop({ default: 'center' }) readonly alignItems?: string
 
   get styles (): object {
     return {

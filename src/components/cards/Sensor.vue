@@ -6,7 +6,7 @@
     :borderColor="borderColor"
     :backgroundColor="backgroundColor"
   >
-    <v-chart class="echarts" :options="type === 'line' ? lineOpt : gaugeOpt"/>
+    <v-chart class="echarts" :options="graphType === 'line' ? lineOpt : gaugeOpt"/>
   </card>
 </template>
 <script lang="ts">
@@ -39,7 +39,7 @@ type guageData = {
 export default class Sensor extends Vue {
   @Prop({ default: '3' }) readonly width?: string | number
   @Prop({ default: '2' }) readonly height?: string | number
-  @Prop({ default: 'line' }) readonly type?: string
+  @Prop({ default: 'line' }) readonly graphType?: string
   @Prop({ default: 0 }) readonly min?:number | string
   @Prop({ default: 10 }) readonly max?:number | string
   @Prop() readonly entity!: HassEntity
