@@ -1,7 +1,7 @@
 export interface headerConfig {
-  url: string
+  color: string
 }
 
 export interface bgConfig {
-  url: string
+  image: string
 }

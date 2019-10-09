@@ -1,0 +1,12 @@
+{
+  "theme": {
+    "background": {
+      "image": "http://i2.tiimg.com/669018/3172c0a8c9afdf7b.jpg",
+      "opacity": "0.4",
+      "blur": "2"
+    },
+    "header": {
+      "color": "rgba(27, 27, 27, 0.45)"
+    }
+  }
+}

@@ -1,7 +1,7 @@
 <template>
   <div class="bg">
     <div class="pic" :style="styles"></div>
-    <div class="mask"></div>
+    <div class="mask" :style="maskStyle"></div>
   </div>
 </template>
 <script lang="ts">
@@ -10,10 +10,19 @@ import { bgConfig } from '@/utils/types'
 
 @Component
 export default class Background extends Vue {
-  @Prop({ default: () => ({ url: 'http://i2.tiimg.com/669018/3172c0a8c9afdf7b.jpg' }) }) private config!: bgConfig
+  @Prop({ default: () => ({}) }) private config!: bgConfig
 
-  styles = {
-    backgroundImage: 'url(' + this.config.url + ')'
+  get styles () {
+    return {
+      backgroundImage: 'url(' + this.config.image + ')',
+      filter: `blur(${this.config.blur || 0}px)`
+    }
+  }
+
+  get maskStyle () {
+    return {
+      opacity: this.config.opacity
+    }
   }
 }
 </script>
@@ -39,7 +48,7 @@ div.bg {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.3);
+    background: black;
   }
 }
 </style>

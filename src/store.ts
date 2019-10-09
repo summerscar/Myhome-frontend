@@ -7,6 +7,9 @@ import {
   HassEntities,
   HassUser
 } from 'home-assistant-js-websocket'
+
+const config = require('./config/config.json')
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -16,7 +19,8 @@ export default new Vuex.Store({
     hassConfig: {},
     hassEntities: {},
     hassUser: {},
-    hassConnection: {}
+    hassConnection: {},
+    config: config
   },
   getters: {
     connected (state) {
@@ -36,6 +40,9 @@ export default new Vuex.Store({
     },
     hassConnection (state) {
       return state.hassConnection
+    },
+    config (state) {
+      return state.config
     }
   },
   mutations: {
@@ -66,6 +73,9 @@ export default new Vuex.Store({
     },
     setHassConnection (state, connection: Connection) {
       state.hassConnection = connection
+    },
+    setConfig (state, config) {
+      state.config = config
     }
   },
   actions: {

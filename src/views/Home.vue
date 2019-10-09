@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-    <background></background>
-    <home-header ref="header" :hassUser="hassUser" @exit="logout"></home-header>
+    <background :config="config.theme.background"></background>
+    <home-header ref="header" :config="config.theme.header" :hassUser="hassUser" @exit="logout"></home-header>
     <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
     <mu-container :style="containerStyle">
       <mu-row wrap="wrap">
@@ -79,13 +79,14 @@ import {
   }
 })
 export default class Home extends Vue {
-  @Getter('connected') connected!:boolean;
-  @Getter('hassEntities') hassEntities!:HassEntities;
-  @Getter('hassConfig') hassConfig!:HassConfig;
-  @Getter('hassAuth') hassAuth!:Auth;
-  @Getter('hassUser') hassUser!:HassUser;
-  @Getter('hassConnection') hassConnection!:Connection;
-  @Mutation('setConnected') setConnected!:Function
+  @Getter('connected') connected!: boolean
+  @Getter('hassEntities') hassEntities!: HassEntities
+  @Getter('hassConfig') hassConfig!: HassConfig
+  @Getter('hassAuth') hassAuth!: Auth
+  @Getter('hassUser') hassUser!: HassUser
+  @Getter('hassConnection') hassConnection!: Connection
+  @Getter('config') config!: object
+  @Mutation('setConnected') setConnected!: Function
 
   private headerHeight: number = 0
 
