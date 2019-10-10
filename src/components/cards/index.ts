@@ -4,7 +4,7 @@ import Cover from './Cover.vue'
 import Light from './Light.vue'
 import Sensor from './Sensor.vue'
 import Switch from './Switch.vue'
-import Weather from './Weather'
+import Weather from './Weather.vue'
 
 export {
   Attributes,

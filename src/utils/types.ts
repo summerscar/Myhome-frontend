@@ -1,7 +1,10 @@
 export interface headerConfig {
-  color: string
+  color: string,
+  blur: string
 }
 
 export interface bgConfig {
-  image: string
+  image: string,
+  opacity: string,
+  blur: string
 }

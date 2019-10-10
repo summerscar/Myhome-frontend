@@ -29,7 +29,7 @@ import {
   Sensor,
   Switch,
   Weather
-} from '@/components/cards/index.js'
+} from '@/components/cards/index'
 
 @Component({
   components: {
