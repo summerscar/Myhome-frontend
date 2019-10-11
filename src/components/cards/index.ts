@@ -5,6 +5,8 @@ import Light from './Light.vue'
 import Sensor from './Sensor.vue'
 import Switch from './Switch.vue'
 import Weather from './Weather.vue'
+import Iframe from './Iframe.vue'
+import Time from './Time.vue'
 
 export {
   Attributes,
@@ -13,5 +15,7 @@ export {
   Light,
   Sensor,
   Switch,
-  Weather
+  Weather,
+  Iframe,
+  Time
 }

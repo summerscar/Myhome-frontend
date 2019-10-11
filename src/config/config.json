@@ -8,5 +8,89 @@
     "header": {
       "color": "rgba(27, 27, 27, 0.45)"
     }
-  }
+  },
+  "rooms": [
+    {
+      "name": "default room",
+      "cards": [
+        {
+          "name": "time",
+          "card_type": "time",
+          "optional": {
+            "width": "2",
+            "borderColor": "none",
+            "backgroundColor": "transparent"
+          }
+        },
+        {
+          "name": "weather",
+          "entity_id": "weather.jia",
+          "card_type": "weather"
+        },
+        {
+          "name": "iframe",
+          "card_type": "iframe",
+          "optional": {
+            "borderColor": "none", 
+            "url": "//player.bilibili.com/player.html?aid=67792202&cid=117509299&page=1",
+            "width": "4",
+            "height": "3",
+            "opacity": "0.8"
+          }
+        },
+        {
+          "name": "iframe",
+          "card_type": "iframe",
+          "optional": {
+            "borderColor": "none", 
+            "url": "//music.163.com/outchain/player?type=2&id=31134835&auto=0&height=66",
+            "width": "1.5",
+            "height": "0.8",
+            "opacity": "0.8"
+          }
+        },
+        {
+          "name": "snesor",
+          "entity_id": "sensor.asuswrt_upload_speed"
+        },
+        {
+          "name": "sensor",
+          "entity_id": "sensor.asuswrt_download_speed"
+        },
+        {
+          "name": "light",
+          "entity_id": "light.yeelight_test"
+        },
+        {
+          "name": "switch",
+          "entity_id": "light.yeelight_test",
+          "card_type": "switch"
+        },
+        {
+          "name": "cover",
+          "entity_id": "light.yeelight_test",
+          "card_type": "cover"
+        },
+        {
+          "name": "attributes",
+          "entity_id": "sensor.asuswrt_download",
+          "card_type": "attributes"
+        },
+        {
+          "name": "attributes",
+          "entity_id": "sensor.asuswrt_upload",
+          "card_type": "attributes"
+        },
+        {
+          "name": "attributes",
+          "entity_id": "device_tracker.shenyudembp",
+          "card_type": "attributes"
+        },
+        {
+          "name": "camera",
+          "entity_id": "camera.uvc_g3_flex"
+        }
+      ]
+    }
+  ]
 }

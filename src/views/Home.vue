@@ -2,32 +2,15 @@
   <div class="home">
     <background :config="config.theme.background"></background>
     <home-header ref="header" :config="config.theme.header" :hassUser="hassUser" @exit="logout"></home-header>
-    <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
     <mu-container :style="containerStyle">
       <mu-row wrap="wrap">
-        <time-card width="2" borderColor="none" backgroundColor="transparent"></time-card>
-        <weather-card :entity="hassEntities['weather.jia']"></weather-card>
-        <entity-card :entity="hassEntities['weather.jia']"></entity-card>
-        <iframe-card borderColor="none" url="//player.bilibili.com/player.html?aid=67792202&cid=117509299&page=1" width="4" height="3" opacity="0.8"></iframe-card>
-        <iframe-card borderColor="none" url="//music.163.com/outchain/player?type=2&id=31134835&auto=0&height=66" width="1.5" height="0.8" opacity="0.8"></iframe-card>
-        <sensor-card :entity="hassEntities['sensor.asuswrt_upload_speed']"></sensor-card>
-        <sensor-card :entity="hassEntities['sensor.asuswrt_download_speed']"></sensor-card>
-        <light-card :entity="hassEntities['light.yeelight_test']"></light-card>
-        <switch-card :entity="hassEntities['light.yeelight_test']"></switch-card>
-        <cover-card :entity="hassEntities['light.yeelight_test']"></cover-card>
-        <attributes-card :entity="hassEntities['sensor.asuswrt_download']"></attributes-card>
-        <attributes-card :entity="hassEntities['sensor.asuswrt_upload']"></attributes-card>
-        <attributes-card :entity="hassEntities['device_tracker.shenyudembp']"></attributes-card>
-        <camera-card :entity="hassEntities['camera.uvc_g3_flex']"></camera-card>
+        <entity-card
+          v-for="(item, index) in config.rooms[0].cards"
+          :key="index"
+          :entity="hassEntities[item.entity_id]"
+          :cardType="item.card_type"
+          :optional="item.optional"/>
       </mu-row>
-      <!-- <mu-list>
-        <mu-list-item v-for="(entity, name) in hassEntities" :key="name" button :ripple="false">
-          <mu-list-item-action>
-            <mu-icon value="home"></mu-icon>
-          </mu-list-item-action>
-          <mu-list-item-title>{{ name }}</mu-list-item-title>
-        </mu-list-item>
-      </mu-list> -->
     </mu-container>
   </div>
 </template>
@@ -36,15 +19,6 @@
 import { Component, Vue } from 'vue-property-decorator'
 import Background from '@/components/Background.vue' // @ is an alias to /src
 import HomeHeader from '@/components/Header.vue'
-import TimeCard from '@/components/cards/Time.vue'
-import LightCard from '@/components/cards/Light.vue'
-import WeatherCard from '@/components/cards/Weather.vue'
-import IframeCard from '@/components/cards/Iframe.vue'
-import AttributesCard from '@/components/cards/Attributes.vue'
-import CameraCard from '@/components/cards/Camera.vue'
-import SensorCard from '@/components/cards/Sensor.vue'
-import SwitchCard from '@/components/cards/Switch.vue'
-import CoverCard from '@/components/cards/Cover.vue'
 import EntityCard from '@/components/Entity.vue'
 import Message from '@/components/message/index'
 import {
@@ -66,15 +40,6 @@ import {
   components: {
     Background,
     HomeHeader,
-    TimeCard,
-    LightCard,
-    WeatherCard,
-    IframeCard,
-    AttributesCard,
-    CameraCard,
-    SensorCard,
-    SwitchCard,
-    CoverCard,
     EntityCard
   }
 })

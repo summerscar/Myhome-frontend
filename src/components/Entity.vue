@@ -28,7 +28,9 @@ import {
   Light,
   Sensor,
   Switch,
-  Weather
+  Weather,
+  Time,
+  Iframe
 } from '@/components/cards/index'
 
 @Component({
@@ -39,15 +41,20 @@ import {
     LightCard: Light,
     SensorCard: Sensor,
     SwitchCard: Switch,
-    WeatherCard: Weather
+    WeatherCard: Weather,
+    TimeCard: Time,
+    IframeCard: Iframe
   }
 })
 export default class Entity extends Vue {
   @Prop({ default: () => ({}) }) readonly optional?: object
-  @Prop() readonly entity!: HassEntity
+  @Prop() readonly entity?: HassEntity
+  @Prop() readonly cardType?: string
 
   get type ():string {
-    let domain = this.entity.entity_id.split('.')[0]
+    if (this.cardType) return this.cardType + '-card'
+    let domain = this.entity && this.entity.entity_id.split('.')[0]
+    if (!domain) return ''
     if (
       domain === 'air_quality' ||
       domain === 'binary_sensor' ||
