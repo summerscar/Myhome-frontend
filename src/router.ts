@@ -11,8 +11,9 @@ const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
+    { path: '/', redirect: { path: '/home/0' } },
     {
-      path: '/',
+      path: '/home/:roomid',
       name: 'home',
       component: Home
     },

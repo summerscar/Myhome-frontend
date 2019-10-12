@@ -3,25 +3,20 @@
     <background :config="config.theme.background"></background>
     <home-header ref="header" :config="config.theme.header" :hassUser="hassUser" @exit="logout"></home-header>
     <mu-container :style="containerStyle">
-      <mu-row wrap="wrap">
-        <entity-card
-          v-for="(item, index) in config.rooms[roomIndex].cards"
-          :key="index"
-          :entity="hassEntities[item.entity_id]"
-          :cardType="item.card_type"
-          :optional="item.optional"/>
-      </mu-row>
+      <room :room="config.rooms[roomIndex]" :hassEntities="hassEntities"/>
     </mu-container>
-    <navigation :config="config.theme.navigation" :list="config.rooms" :value="0" @change="roomChange"/>
+    <navigation :config="config.theme.navigation" :list="config.rooms" :value="roomIndex" @change="roomChange"/>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import Vue from 'vue'
+import Component from 'vue-class-component'
 import Background from '@/components/Background.vue' // @ is an alias to /src
 import HomeHeader from '@/components/Header.vue'
 import Navigation from '@/components/Navigation.vue'
-import EntityCard from '@/components/Entity.vue'
+import Room from '@/components/Room.vue'
+import Route from 'vue-router'
 import Message from '@/components/message/index'
 import {
   State,
@@ -38,12 +33,18 @@ import {
   Connection
 } from 'home-assistant-js-websocket'
 
+Component.registerHooks([
+  'beforeRouteEnter',
+  'beforeRouteUpdate',
+  'beforeRouteLeave'
+])
+
 @Component({
   components: {
     Background,
     HomeHeader,
     Navigation,
-    EntityCard
+    Room
   }
 })
 export default class Home extends Vue {
@@ -65,6 +66,18 @@ export default class Home extends Vue {
     }
   }
 
+  beforeRouteEnter (to: Route, from: Route, next: Function) {
+    console.log('beforeRouteEnter')
+    next()
+  }
+
+  beforeRouteLeave (to: Route, from: Route, next: Function) {
+    console.log('beforeRouteLeave')
+    next()
+  }
+  created () {
+    this.roomIndex = Number(this.$route.params.roomid)
+  }
   mounted () {
     this.$nextTick(() => {
       let header:HTMLElement = (this.$refs.header as Vue).$el as HTMLElement
@@ -93,6 +106,12 @@ export default class Home extends Vue {
   }
   roomChange (roomIndex: number) {
     this.roomIndex = roomIndex
+    this.$router.push({
+      name: 'home',
+      params: {
+        roomid: String(roomIndex)
+      }
+    })
   }
 }
 </script>
