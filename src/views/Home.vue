@@ -3,7 +3,24 @@
     <background :config="config.theme.background"></background>
     <home-header ref="header" :config="config.theme.header" :hassUser="hassUser" @exit="logout"></home-header>
     <mu-container :style="containerStyle">
-      <room :room="config.rooms[roomIndex]" :hassEntities="hassEntities"/>
+      <mu-carousel
+        class="carousel"
+        hide-controls
+        hide-indicators
+        :active="roomIndex"
+        :cycle="false"
+        ref="carousel"
+      >
+        <mu-carousel-item
+          v-for="(room, index) in config.rooms"
+          :key="index"
+        >
+          <room
+            :room="room"
+            :hassEntities="hassEntities"
+          />
+        </mu-carousel-item>
+      </mu-carousel>
     </mu-container>
     <navigation :config="config.theme.navigation" :list="config.rooms" :value="roomIndex" @change="roomChange"/>
   </div>
@@ -83,7 +100,7 @@ export default class Home extends Vue {
       let header:HTMLElement = (this.$refs.header as Vue).$el as HTMLElement
       this.headerHeight = header.offsetHeight
     })
-
+    console.log(this.$refs.carousel)
     this.hassConnection.addEventListener('disconnected', () => {
       this.$message({
         message: '连接中断',
@@ -106,6 +123,7 @@ export default class Home extends Vue {
   }
   roomChange (roomIndex: number) {
     this.roomIndex = roomIndex
+    console.log('room change:', roomIndex)
     this.$router.push({
       name: 'home',
       params: {
@@ -118,5 +136,8 @@ export default class Home extends Vue {
 <style lang="scss" scoped>
 div.home {
   color: #fafafa;
+}
+.carousel {
+  height: 100%;
 }
 </style>
