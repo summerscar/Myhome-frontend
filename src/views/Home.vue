@@ -5,13 +5,14 @@
     <mu-container :style="containerStyle">
       <mu-row wrap="wrap">
         <entity-card
-          v-for="(item, index) in config.rooms[0].cards"
+          v-for="(item, index) in config.rooms[roomIndex].cards"
           :key="index"
           :entity="hassEntities[item.entity_id]"
           :cardType="item.card_type"
           :optional="item.optional"/>
       </mu-row>
     </mu-container>
+    <navigation :config="config.theme.navigation" :list="config.rooms" :value="0" @change="roomChange"/>
   </div>
 </template>
 
@@ -19,6 +20,7 @@
 import { Component, Vue } from 'vue-property-decorator'
 import Background from '@/components/Background.vue' // @ is an alias to /src
 import HomeHeader from '@/components/Header.vue'
+import Navigation from '@/components/Navigation.vue'
 import EntityCard from '@/components/Entity.vue'
 import Message from '@/components/message/index'
 import {
@@ -40,6 +42,7 @@ import {
   components: {
     Background,
     HomeHeader,
+    Navigation,
     EntityCard
   }
 })
@@ -54,10 +57,10 @@ export default class Home extends Vue {
   @Mutation('setConnected') setConnected!: Function
 
   private headerHeight: number = 0
-
+  private roomIndex: number = 0
   get containerStyle () {
     return {
-      height: `calc(100vh - ${this.headerHeight}px)`,
+      height: `calc(100vh - ${this.headerHeight + 56}px)`,
       overflow: 'auto'
     }
   }
@@ -87,6 +90,9 @@ export default class Home extends Vue {
   logout ():void {
     this.setConnected(false)
     this.$router.push({ path: '/login' })
+  }
+  roomChange (roomIndex: number) {
+    this.roomIndex = roomIndex
   }
 }
 </script>

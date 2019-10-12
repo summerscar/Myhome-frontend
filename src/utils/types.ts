@@ -8,3 +8,8 @@ export interface bgConfig {
   opacity: string,
   blur: string
 }
+
+export interface room {
+  icon: string,
+  name: string
+}

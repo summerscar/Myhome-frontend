@@ -38,8 +38,8 @@ import { headerConfig } from '@/utils/types'
 
 @Component
 export default class Header extends Vue {
-  @Prop() private hassUser!: HassUser
-  @Prop({ default: () => ({}) }) private config!: headerConfig
+  @Prop() readonly hassUser!: HassUser
+  @Prop({ default: () => ({}) }) readonly config!: headerConfig
 
   @Emit('exit')
   exit () {}

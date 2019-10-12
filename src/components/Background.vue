@@ -10,7 +10,7 @@ import { bgConfig } from '@/utils/types'
 
 @Component
 export default class Background extends Vue {
-  @Prop({ default: () => ({}) }) private config!: bgConfig
+  @Prop({ default: () => ({}) }) readonly config!: bgConfig
 
   get styles () {
     return {

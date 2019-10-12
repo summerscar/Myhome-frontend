@@ -7,11 +7,15 @@
     },
     "header": {
       "color": "rgba(27, 27, 27, 0.45)"
+    },
+    "navigation": {
+      "color": "rgba(27, 27, 27, 0.45)"
     }
   },
   "rooms": [
     {
       "name": "default room",
+      "icon": "bed",
       "cards": [
         {
           "name": "time",
@@ -91,6 +95,10 @@
           "entity_id": "camera.uvc_g3_flex"
         }
       ]
+    },
+    {
+      "name":"room 2",
+      "icon": "bath"
     }
   ]
 }
