@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <background :config="config.theme.background"></background>
-    <home-header ref="header" :config="config.theme.header" :hassUser="hassUser" @exit="logout"></home-header>
+    <home-header ref="header" :config="config.theme.header" :hassUser="hassUser" @exit="logout" @setting="openSetting"></home-header>
     <mu-container :style="containerStyle">
       <mu-carousel
         class="carousel"
@@ -23,6 +23,19 @@
       </mu-carousel>
     </mu-container>
     <navigation :config="config.theme.navigation" :list="config.rooms" :value="roomIndex" @change="roomChange"/>
+     <mu-dialog width="360" transition="slide-bottom" fullscreen :open.sync="isOpenSetting">
+      <mu-appbar color="primary" title="Fullscreen Diaolog">
+        <mu-button slot="left" icon @click="closeSetting">
+          <mu-icon value="close"></mu-icon>
+        </mu-button>
+        <mu-button slot="right" flat  @click="closeSetting">
+          Done
+        </mu-button>
+      </mu-appbar>
+      <div style="padding: 24px;">
+        this is a fullscreen dialog
+      </div>
+    </mu-dialog>
   </div>
 </template>
 
@@ -76,6 +89,8 @@ export default class Home extends Vue {
 
   private headerHeight: number = 0
   private roomIndex: number = 0
+  private isOpenSetting: boolean = false
+
   get containerStyle () {
     return {
       height: `calc(100vh - ${this.headerHeight + 56}px)`,
@@ -116,6 +131,12 @@ export default class Home extends Vue {
     //     timeout: 4000
     //   })
     // })
+  }
+  openSetting () {
+    this.isOpenSetting = true
+  }
+  closeSetting () {
+    this.isOpenSetting = false
   }
   logout ():void {
     this.setConnected(false)

@@ -11,7 +11,7 @@
         {{ hassUser.name && hassUser.name.slice(0,1) }}
         </mu-avatar>
       </mu-button>
-      <mu-list slot="content">
+      <mu-list slot="content" @click="setting">
         <mu-list-item button>
           <mu-list-item-title>
             <mu-icon size="24" value=":fa fa-cog" color="#757575"></mu-icon>
@@ -43,6 +43,9 @@ export default class Header extends Vue {
 
   @Emit('exit')
   exit () {}
+
+  @Emit('setting')
+  setting () {}
 }
 </script>
 
