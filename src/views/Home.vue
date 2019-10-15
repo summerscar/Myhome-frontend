@@ -170,7 +170,11 @@ export default class Home extends Vue {
         selectedCard = this.config.rooms[roomIndex].cards.splice(changeInfo.card_index, 1)[0]
         this.config.rooms[roomIndex].cards.splice(changeInfo.card_index + 1, 0, selectedCard)
         break
+      case 'add':
+        console.log('addcard', roomIndex)
+        break
       default:
+        console.log(changeInfo)
         break
     }
   }

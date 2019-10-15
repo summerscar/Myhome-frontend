@@ -1,16 +1,19 @@
 <template>
-    <mu-row wrap="wrap">
-      <entity-card
-        v-for="(item, index) in room.cards"
-        :key="index"
-        :entity="hassEntities[item.entity_id]"
-        :cardType="item.card_type"
-        :optional="item.optional"
-        @edit="edit('edit', item, index)"
-        @remove="edit('remove', item, index)"
-        @prev="edit('prev', item, index)"
-        @next="edit('next', item, index)"/>
-    </mu-row>
+  <mu-row wrap="wrap">
+    <entity-card
+      v-for="(item, index) in room.cards"
+      :key="index"
+      :entity="hassEntities[item.entity_id]"
+      :cardType="item.card_type"
+      :optional="item.optional"
+      @edit="edit('edit', item, index)"
+      @remove="edit('remove', item, index)"
+      @prev="edit('prev', item, index)"
+      @next="edit('next', item, index)"/>
+      <mu-flex v-if="isEditing" class="add" justify-content="center" align-items="center" @click="edit('add')">
+        <mu-icon size="24" value=":fa fa-plus"></mu-icon>
+      </mu-flex>
+  </mu-row>
 </template>
 <script lang="ts">
 import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
@@ -21,7 +24,7 @@ import {
   HassUser
 } from 'home-assistant-js-websocket'
 import { headerConfig, room } from '@/utils/types'
-
+import { Getter } from 'vuex-class'
 @Component({
   components: {
     EntityCard
@@ -30,6 +33,8 @@ import { headerConfig, room } from '@/utils/types'
 export default class Room extends Vue {
   @Prop() readonly room!: Array<object>
   @Prop() readonly hassEntities!: HassEntities
+
+  @Getter('isEditing') isEditing!: boolean
 
   @Emit('edit')
   edit (type: string, item: object, index: number) {
@@ -43,5 +48,12 @@ export default class Room extends Vue {
 }
 </script>
 <style lang="scss" scoped>
-
+  .add {
+    cursor: pointer;
+    width: 8rem;
+    height: 8rem;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 0.2rem;
+    margin: 0.4rem;
+  }
 </style>
