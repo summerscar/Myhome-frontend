@@ -2,10 +2,15 @@
   <card
     v-if="entity"
     class="weather"
+    :isEditing="isEditing"
     :width="width"
     :height="height"
     :borderColor="borderColor"
     :backgroundColor="backgroundColor"
+    @edit="edit"
+    @remove="remove"
+    @prev="prev"
+    @next="next"
   >
     <mu-flex class="name" justify-content="center">
       {{ entity.attributes.friendly_name }}
@@ -41,11 +46,14 @@ import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
 import { HassEntity } from 'home-assistant-js-websocket'
 import Card from '@/components/Card.vue'
 import dayjs from 'dayjs'
+import { Getter } from 'vuex-class'
+import mixin from '@/components/cards/mixin'
 
 @Component({
   components: {
     Card
-  }
+  },
+  mixins: [mixin]
 })
 export default class Weather extends Vue {
   @Prop({ default: '2' }) readonly width?:string | number
@@ -53,6 +61,8 @@ export default class Weather extends Vue {
   @Prop() readonly borderColor?:string
   @Prop() readonly backgroundColor?:string
   @Prop() readonly entity!: HassEntity
+  @Getter('isEditing') isEditing!: boolean
+
   private dayjs:Function = dayjs
   private days:Array<string> = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
   private weatherIcon = {

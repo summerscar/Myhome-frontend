@@ -2,8 +2,13 @@
   <card
     :width="width"
     :height="height"
+    :isEditing="isEditing"
     :borderColor="borderColor"
     :backgroundColor="backgroundColor"
+    @edit="edit"
+    @remove="remove"
+    @prev="prev"
+    @next="next"
   >
     <div class="time">
       <span class="hour">{{ timeFormat('HH') }}</span>
@@ -21,11 +26,14 @@
 import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
 import Card from '@/components/Card.vue'
 import dayjs from 'dayjs'
+import { Getter } from 'vuex-class'
+import mixin from '@/components/cards/mixin'
 
 @Component({
   components: {
     Card
-  }
+  },
+  mixins: [mixin]
 })
 export default class Time extends Vue {
   @Prop({ default: '2' }) readonly width?:string | number
@@ -33,6 +41,7 @@ export default class Time extends Vue {
   @Prop({ default: 'HH:mm:ss' }) readonly format?:string
   @Prop() readonly borderColor?:string
   @Prop() readonly backgroundColor?:string
+  @Getter('isEditing') isEditing!: boolean
 
   private date: Date = new Date()
   private timer: ReturnType<typeof setInterval> | undefined

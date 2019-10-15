@@ -3,8 +3,13 @@
     :width="width"
     :height="height"
     v-if="entity"
+    :isEditing="isEditing"
     :borderColor="borderColor"
     :backgroundColor="backgroundColor"
+    @edit="edit"
+    @remove="remove"
+    @prev="prev"
+    @next="next"
   >
     <div class="switch" :style="styles" v-rippuru>
       <div class="name">{{ entity.attributes.friendly_name }}</div>
@@ -21,11 +26,14 @@ import { HassEntity } from 'home-assistant-js-websocket'
 import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
 import Card from '@/components/Card.vue'
 import { handleChange as hassHandleChange } from '@/utils/homeassistant'
+import { Getter } from 'vuex-class'
+import mixin from '@/components/cards/mixin'
 
 @Component({
   components: {
     Card
-  }
+  },
+  mixins: [mixin]
 })
 export default class HASwitch extends Vue {
   @Prop({ default: '1' }) readonly width?:string | number
@@ -33,6 +41,8 @@ export default class HASwitch extends Vue {
   @Prop() readonly entity!: HassEntity
   @Prop() readonly borderColor?: string
   @Prop() readonly backgroundColor?: string
+
+  @Getter('isEditing') isEditing!: boolean
 
   get state ():boolean {
     return this.entity.state === 'on'

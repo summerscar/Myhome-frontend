@@ -15,12 +15,17 @@
     :min="optional.min"
     :max="optional.max"
     :format="optional.format"
+    @edit="edit"
+    @remove="remove"
+    @prev="prev"
+    @next="next"
   >
   </component>
 </template>
 <script lang="ts">
 import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
 import { HassEntity } from 'home-assistant-js-websocket'
+import mixin from '@/components/cards/mixin'
 import {
   Attributes,
   Camera,
@@ -44,7 +49,8 @@ import {
     WeatherCard: Weather,
     TimeCard: Time,
     IframeCard: Iframe
-  }
+  },
+  mixins: [mixin]
 })
 export default class Entity extends Vue {
   @Prop({ default: () => ({}) }) readonly optional?: object

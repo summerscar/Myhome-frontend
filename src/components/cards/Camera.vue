@@ -2,9 +2,14 @@
     <card
       :width="width"
       :height="height"
+      :isEditing="isEditing"
       v-if="entity"
       :borderColor="borderColor"
       :backgroundColor="backgroundColor"
+      @edit="edit"
+      @remove="remove"
+      @prev="prev"
+      @next="next"
     >
       <mu-flex class="camera">
         <img
@@ -19,15 +24,16 @@
 <script lang="ts">
 import { HassEntity, Auth } from 'home-assistant-js-websocket'
 import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
+
 import Card from '@/components/Card.vue'
-import {
-  Getter
-} from 'vuex-class'
+import { Getter } from 'vuex-class'
+import mixin from '@/components/cards/mixin'
 
 @Component({
   components: {
     Card
-  }
+  },
+  mixins: [mixin]
 })
 export default class Camera extends Vue {
   @Prop({ default: '3' }) readonly width?:string | number
@@ -37,6 +43,7 @@ export default class Camera extends Vue {
   @Prop() readonly backgroundColor?:string
 
   @Getter('hassAuth') hassAuth!:Auth;
+  @Getter('isEditing') isEditing!: boolean
 
   get src ():string {
     return `${this.hassAuth.data.hassUrl}${this.entity.attributes.entity_picture}&${new Date().toISOString().slice(-13, -5)}`

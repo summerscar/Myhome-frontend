@@ -1,10 +1,9 @@
 <template>
   <mu-appbar class="header" style="width: 100%;" title="My home" :color="config.color">
-    <mu-menu slot="left">
-    <mu-button flat>
-      <mu-icon size="24" value="home"></mu-icon>
+    <mu-button icon slot="left" @click="edit">
+      <mu-icon v-if="!isEditing" size="24" value=":fa fa-sliders"></mu-icon>
+      <mu-icon v-else size="24" value=":fa fa-check"></mu-icon>
     </mu-button>
-    </mu-menu>
     <mu-menu slot="right">
       <mu-button flat>
         <mu-avatar text-color="deepOrange300" color="purple500">
@@ -29,6 +28,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
+import { Getter } from 'vuex-class'
 import {
   HassConfig,
   HassEntities,
@@ -40,12 +40,18 @@ import { headerConfig } from '@/utils/types'
 export default class Header extends Vue {
   @Prop() readonly hassUser!: HassUser
   @Prop({ default: () => ({}) }) readonly config!: headerConfig
+  @Getter('isEditing') isEditing!: boolean
 
   @Emit('exit')
   exit () {}
 
   @Emit('setting')
   setting () {}
+
+  @Emit('edit')
+  edit () {
+    return !this.isEditing
+  }
 }
 </script>
 

@@ -2,10 +2,15 @@
   <card
     v-if="entity"
     class="attributes"
+    :isEditing="isEditing"
     :width="width"
     :height="height"
     :borderColor="borderColor"
     :backgroundColor="backgroundColor"
+    @edit="edit"
+    @remove="remove"
+    @prev="prev"
+    @next="next"
   >
     <mu-flex class="name" justify-content="center" align-items="center">
       {{ entity.attributes.friendly_name }}
@@ -35,13 +40,16 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
+import { Getter } from 'vuex-class'
 import { HassEntity } from 'home-assistant-js-websocket'
 import Card from '@/components/Card.vue'
+import mixin from '@/components/cards/mixin'
 
 @Component({
   components: {
     Card
-  }
+  },
+  mixins: [mixin]
 })
 export default class Attributes extends Vue {
   @Prop({ default: '1' }) readonly width?:string | number
@@ -53,6 +61,8 @@ export default class Attributes extends Vue {
   @Prop({ default: '' }) readonly unit?: string
   @Prop({ default: () => [] }) readonly attributes?: Array<object>
   @Prop() readonly entity!: HassEntity
+
+  @Getter('isEditing') isEditing!: boolean
 }
 </script>
 

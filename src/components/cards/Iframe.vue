@@ -2,9 +2,14 @@
     <card
       :width="width"
       :height="height"
+      :isEditing="isEditing"
       :borderColor="borderColor"
       :backgroundColor="backgroundColor"
       :opacity="opacity"
+      @edit="edit"
+      @remove="remove"
+      @prev="prev"
+      @next="next"
     >
       <iframe
         class="iframe"
@@ -18,11 +23,14 @@
 import { HassEntity } from 'home-assistant-js-websocket'
 import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
 import Card from '@/components/Card.vue'
+import { Getter } from 'vuex-class'
+import mixin from '@/components/cards/mixin'
 
 @Component({
   components: {
     Card
-  }
+  },
+  mixins: [mixin]
 })
 export default class Iframe extends Vue {
   @Prop({ default: '2' }) readonly width?:string | number
@@ -31,6 +39,8 @@ export default class Iframe extends Vue {
   @Prop() readonly borderColor?:string
   @Prop() readonly backgroundColor?:string
   @Prop() readonly opacity?:string | number
+
+  @Getter('isEditing') isEditing!: boolean
 }
 </script>
 

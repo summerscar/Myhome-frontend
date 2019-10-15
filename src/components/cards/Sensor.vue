@@ -3,8 +3,13 @@
     v-if="entity"
     :width="width"
     :height="height"
+    :isEditing="isEditing"
     :borderColor="borderColor"
     :backgroundColor="backgroundColor"
+    @edit="edit"
+    @remove="remove"
+    @prev="prev"
+    @next="next"
   >
     <v-chart class="echarts" :options="graphType === 'line' ? lineOpt : gaugeOpt"/>
   </card>
@@ -12,8 +17,10 @@
 <script lang="ts">
 import { HassEntity } from 'home-assistant-js-websocket'
 import { Component, Prop, Vue, Emit, Watch } from 'vue-property-decorator'
+import { Getter } from 'vuex-class'
 import Card from '@/components/Card.vue'
 import dayjs from 'dayjs'
+import mixin from '@/components/cards/mixin'
 import ECharts from 'vue-echarts'
 import 'echarts/lib/chart/line'
 import 'echarts/lib/chart/gauge'
@@ -34,7 +41,8 @@ type guageData = {
   components: {
     Card,
     'v-chart': ECharts
-  }
+  },
+  mixins: [mixin]
 })
 export default class Sensor extends Vue {
   @Prop({ default: '3' }) readonly width?: string | number
@@ -45,7 +53,7 @@ export default class Sensor extends Vue {
   @Prop() readonly entity!: HassEntity
   @Prop() readonly borderColor?: string
   @Prop() readonly backgroundColor?: string
-
+  @Getter('isEditing') isEditing!: boolean
   private data: Array<dataItem> = []
   private lineOpt = {
     title: {

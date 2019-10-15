@@ -1,7 +1,13 @@
 <template>
   <div class="home">
     <background :config="config.theme.background"></background>
-    <home-header ref="header" :config="config.theme.header" :hassUser="hassUser" @exit="logout" @setting="openSetting"></home-header>
+    <home-header ref="header"
+      :config="config.theme.header"
+      :hassUser="hassUser"
+      @exit="logout"
+      @setting="openSetting"
+      @edit="setIsEditing"
+    />
     <mu-container :style="containerStyle">
       <mu-carousel
         class="carousel"
@@ -18,24 +24,13 @@
           <room
             :room="room"
             :hassEntities="hassEntities"
+            @edit="cardEdit($event, index)"
           />
         </mu-carousel-item>
       </mu-carousel>
     </mu-container>
     <navigation :config="config.theme.navigation" :list="config.rooms" :value="roomIndex" @change="roomChange"/>
-     <mu-dialog width="360" transition="slide-bottom" fullscreen :open.sync="isOpenSetting">
-      <mu-appbar color="primary" title="Fullscreen Diaolog">
-        <mu-button slot="left" icon @click="closeSetting">
-          <mu-icon value="close"></mu-icon>
-        </mu-button>
-        <mu-button slot="right" flat  @click="closeSetting">
-          Done
-        </mu-button>
-      </mu-appbar>
-      <div style="padding: 24px;">
-        this is a fullscreen dialog
-      </div>
-    </mu-dialog>
+    <setting :isOpen.sync="isOpenSetting" :config="config" @change="settingChange"/>
   </div>
 </template>
 
@@ -45,6 +40,7 @@ import Component from 'vue-class-component'
 import Background from '@/components/Background.vue' // @ is an alias to /src
 import HomeHeader from '@/components/Header.vue'
 import Navigation from '@/components/Navigation.vue'
+import Setting from '@/components/Setting.vue'
 import Room from '@/components/Room.vue'
 import Route from 'vue-router'
 import Message from '@/components/message/index'
@@ -74,7 +70,8 @@ Component.registerHooks([
     Background,
     HomeHeader,
     Navigation,
-    Room
+    Room,
+    Setting
   }
 })
 export default class Home extends Vue {
@@ -84,8 +81,11 @@ export default class Home extends Vue {
   @Getter('hassAuth') hassAuth!: Auth
   @Getter('hassUser') hassUser!: HassUser
   @Getter('hassConnection') hassConnection!: Connection
-  @Getter('config') config!: object
+  @Getter('isEditing') isEditing!: boolean
+  @Getter('config') config!: any
   @Mutation('setConnected') setConnected!: Function
+  @Mutation('setConfig') setConfig!: Function
+  @Mutation('setIsEditing') setIsEditing!: Function
 
   private headerHeight: number = 0
   private roomIndex: number = 0
@@ -115,7 +115,6 @@ export default class Home extends Vue {
       let header:HTMLElement = (this.$refs.header as Vue).$el as HTMLElement
       this.headerHeight = header.offsetHeight
     })
-    console.log(this.$refs.carousel)
     this.hassConnection.addEventListener('disconnected', () => {
       this.$message({
         message: '连接中断',
@@ -132,11 +131,12 @@ export default class Home extends Vue {
     //   })
     // })
   }
+
   openSetting () {
     this.isOpenSetting = true
   }
-  closeSetting () {
-    this.isOpenSetting = false
+  settingChange (config: object) {
+    this.setConfig(config)
   }
   logout ():void {
     this.setConnected(false)
@@ -151,6 +151,28 @@ export default class Home extends Vue {
         roomid: String(roomIndex)
       }
     })
+  }
+  cardEdit (changeInfo: any, roomIndex: number) {
+    changeInfo = Object.assign(changeInfo, { roomIndex })
+    let selectedCard
+    switch (changeInfo.type) {
+      case 'edit':
+        console.log(changeInfo)
+        break
+      case 'remove':
+        this.config.rooms[roomIndex].cards.splice(changeInfo.card_index, 1)
+        break
+      case 'prev':
+        selectedCard = this.config.rooms[roomIndex].cards.splice(changeInfo.card_index, 1)[0]
+        this.config.rooms[roomIndex].cards.splice(changeInfo.card_index - 1, 0, selectedCard)
+        break
+      case 'next':
+        selectedCard = this.config.rooms[roomIndex].cards.splice(changeInfo.card_index, 1)[0]
+        this.config.rooms[roomIndex].cards.splice(changeInfo.card_index + 1, 0, selectedCard)
+        break
+      default:
+        break
+    }
   }
 }
 </script>

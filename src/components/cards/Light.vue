@@ -3,8 +3,13 @@
     :width="width"
     :height="height"
     v-if="entity"
+    :isEditing="isEditing"
     :borderColor="borderColor"
     :backgroundColor="backgroundColor"
+    @edit="edit"
+    @remove="remove"
+    @prev="prev"
+    @next="next"
   >
     <div class="light" :style="styles" v-rippuru:styles.color>
       <div class="name">{{ entity.attributes.friendly_name }}</div>
@@ -32,11 +37,14 @@ import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
 import Card from '@/components/Card.vue'
 import { handleChange as hassHandleChange } from '@/utils/homeassistant'
 import { debounce } from '@/utils/utils'
+import { Getter } from 'vuex-class'
+import mixin from '@/components/cards/mixin'
 
 @Component({
   components: {
     Card
-  }
+  },
+  mixins: [mixin]
 })
 export default class Light extends Vue {
   @Prop({ default: '1' }) readonly width?:string | number
@@ -44,6 +52,8 @@ export default class Light extends Vue {
   @Prop() readonly entity!: HassEntity
   @Prop() readonly borderColor?:string
   @Prop() readonly backgroundColor?:string
+
+  @Getter('isEditing') isEditing!: boolean
 
   private brightness: number = Math.floor(this.entity.attributes.brightness / 255 * 100)
 

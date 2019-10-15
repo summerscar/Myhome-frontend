@@ -20,7 +20,8 @@ export default new Vuex.Store({
     hassEntities: {},
     hassUser: {},
     hassConnection: {},
-    config: config
+    config: config,
+    isEditing: false
   },
   getters: {
     connected (state) {
@@ -43,6 +44,9 @@ export default new Vuex.Store({
     },
     config (state) {
       return state.config
+    },
+    isEditing (state) {
+      return state.isEditing
     }
   },
   mutations: {
@@ -76,6 +80,9 @@ export default new Vuex.Store({
     },
     setConfig (state, config) {
       state.config = config
+    },
+    setIsEditing (state, boolean) {
+      state.isEditing = boolean
     }
   },
   actions: {
