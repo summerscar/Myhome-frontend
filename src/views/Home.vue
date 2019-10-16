@@ -30,7 +30,7 @@
       </mu-carousel>
     </mu-container>
     <navigation :config="config.theme.navigation" :list="config.rooms" :value="roomIndex" @change="roomChange"/>
-    <setting :isOpen.sync="isOpenSetting" :config="config" @change="settingChange"/>
+    <setting :isOpen.sync="isOpenSetting" :config="config" :hassEntities="hassEntities" @change="settingChange"/>
   </div>
 </template>
 
@@ -154,6 +154,7 @@ export default class Home extends Vue {
   }
   cardEdit (changeInfo: any, roomIndex: number) {
     changeInfo = Object.assign(changeInfo, { roomIndex })
+    console.log('cardEdit:', changeInfo)
     let selectedCard
     switch (changeInfo.type) {
       case 'edit':
@@ -186,5 +187,8 @@ div.home {
 }
 .carousel {
   height: 100%;
+  &::v-deep .mu-carousel-item {
+    overflow: auto;
+  }
 }
 </style>

@@ -31,10 +31,20 @@ import { Getter } from 'vuex-class'
   }
 })
 export default class Room extends Vue {
-  @Prop() readonly room!: Array<object>
+  @Prop() readonly room!: any
   @Prop() readonly hassEntities!: HassEntities
 
   @Getter('isEditing') isEditing!: boolean
+
+  get filteredCard () {
+    return this.room.cards.filter((card: any) => {
+      if (card.entity_id) {
+        return this.hassEntities[card.entity_id]
+      } else {
+        return true
+      }
+    })
+  }
 
   @Emit('edit')
   edit (type: string, item: object, index: number) {

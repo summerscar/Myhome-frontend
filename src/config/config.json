@@ -18,7 +18,7 @@
       "icon": "bed",
       "cards": [
         {
-          "name": "time",
+          "name": "",
           "card_type": "time",
           "optional": {
             "width": "2",
@@ -27,12 +27,12 @@
           }
         },
         {
-          "name": "weather",
+          "name": "",
           "entity_id": "weather.jia",
           "card_type": "weather"
         },
         {
-          "name": "iframe",
+          "name": "",
           "card_type": "iframe",
           "optional": {
             "borderColor": "none", 
@@ -43,44 +43,44 @@
           }
         },
         {
-          "name": "snesor",
+          "name": "",
           "entity_id": "sensor.asuswrt_upload_speed"
         },
         {
-          "name": "sensor",
+          "name": "",
           "entity_id": "sensor.asuswrt_download_speed"
         },
         {
-          "name": "light",
+          "name": "",
           "entity_id": "light.yeelight_test"
         },
         {
-          "name": "switch",
+          "name": "",
           "entity_id": "light.yeelight_test",
           "card_type": "switch"
         },
         {
-          "name": "cover",
+          "name": "",
           "entity_id": "light.yeelight_test",
           "card_type": "cover"
         },
         {
-          "name": "attributes",
+          "name": "",
           "entity_id": "sensor.asuswrt_download",
           "card_type": "attributes"
         },
         {
-          "name": "attributes",
+          "name": "",
           "entity_id": "sensor.asuswrt_upload",
           "card_type": "attributes"
         },
         {
-          "name": "attributes",
+          "name": "",
           "entity_id": "device_tracker.shenyudembp",
           "card_type": "attributes"
         },
         {
-          "name": "camera",
+          "name": "",
           "entity_id": "camera.uvc_g3_flex"
         }
       ]
@@ -90,7 +90,7 @@
       "icon": "bath",
       "cards": [
         {
-          "name": "time",
+          "name": "",
           "card_type": "time",
           "optional": {
             "width": "2",
@@ -99,7 +99,7 @@
           }
         },
         {
-          "name": "iframe",
+          "name": "",
           "card_type": "iframe",
           "optional": {
             "borderColor": "none", 
@@ -110,7 +110,7 @@
           }
         },
         {
-          "name": "iframe",
+          "name": "",
           "card_type": "iframe",
           "optional": {
             "borderColor": "none", 
