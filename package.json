@@ -15,7 +15,7 @@
     "dayjs": "^1.8.16",
     "echarts": "^4.3.0",
     "home-assistant-js-websocket": "^4.4.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "material-design-icons": "^3.0.1",
     "muse-ui": "^3.0.2",
     "query-string": "^6.8.3",
